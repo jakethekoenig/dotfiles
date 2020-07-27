@@ -79,6 +79,8 @@ nnoremap <leader>es :UltiSnipsEdit<cr>
 " Insert Mode Commands {{{
 inoremap <c-u> <esc>lviwUwi
 inoremap jk <esc>
+noremap! <C-BS> <C-w>
+noremap! <C-h> <C-w>
 "}}}
 
 " Aesthetic Scrolling Changes {{{
