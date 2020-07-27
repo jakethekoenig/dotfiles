@@ -1,10 +1,12 @@
+.netrwhist
+undodir/
+bundle
 bundle/deoplete.nvim
 bundle/neosnippet-snippets
 bundle/neosnippet.vim
 bundle/nvim-yarp
 bundle/ultisnips
+bundle/vim-fugitive
 bundle/vim-hug-neovim-rpc
 bundle/vim-snippets
 bundle/Vundle.vim
-bundle
-.netrwhist

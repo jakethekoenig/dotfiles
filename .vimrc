@@ -1,5 +1,8 @@
 " Plugin Ideas:
 " * WPM tracker and coach. Could count percent of backspaces or whatever.
+"
+" TODO:
+" * Add bundle directories to version control as submodules.
 
 let mapleader = "-"
 let maplocalleader = "="
