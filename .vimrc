@@ -5,6 +5,7 @@ let mapleader = "-"
 let maplocalleader = "="
 
 " Plugins {{{
+"Command to reinstall plugins: PluginInstall
 set nocompatible
 filetype off
 
@@ -20,6 +21,7 @@ Plugin 'SirVer/ultisnips'
 Plugin 'tpope/vim-fugitive'
 
 call vundle#end()
+
 filetype plugin indent on
 " }}}
 
