@@ -6,3 +6,5 @@ bundle/ultisnips
 bundle/vim-hug-neovim-rpc
 bundle/vim-snippets
 bundle/Vundle.vim
+bundle
+.netrwhist
