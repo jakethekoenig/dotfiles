@@ -79,15 +79,20 @@ nnoremap <leader>es :UltiSnipsEdit<cr>
 " Insert Mode Commands {{{
 inoremap <c-u> <esc>lviwUwi
 inoremap jk <esc>
+"}}}
 
-
+" Aesthetic Scrolling Changes {{{
+nnoremap <c-f> <c-f>zz
+nnoremap <c-b> <c-b>zz
+nnoremap <c-d> <c-d>zz
+nnoremap <c-u> <c-u>zz
 "}}}
 
 " Vimscript file settings {{{
 augroup filetype_vim
 	autocmd!
 	autocmd FileType vim setlocal foldmethod=marker
-	autocmd FileType vim autocmd BufWritePost $MYVIMRC source $MYVIMRC
+	autocmd BufWritePost $MYVIMRC source $MYVIMRC
 augroup END
 " }}}
 
