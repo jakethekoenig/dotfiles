@@ -46,7 +46,8 @@ set noerrorbells
 set title
 
 set dir=~/.vim/.cache
-
+set undofile
+set undodir=~/.vim/undodir
 "}}}
 
 " File Type Settings {{{
