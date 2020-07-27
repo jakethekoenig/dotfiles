@@ -1,11 +1,10 @@
-" TODO: make this file publically available somehow
-" TODO: plugin which tracks wpm.
+" Plugin Ideas:
+" * WPM tracker and coach. Could count percent of backspaces or whatever.
 
 let mapleader = "-"
 let maplocalleader = "="
 
 " Plugins {{{
-" TODO: search for more plugins that might be valuable.
 set nocompatible
 filetype off
 
@@ -17,6 +16,8 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'honza/vim-snippets'
 
 Plugin 'SirVer/ultisnips'
+
+Plugin 'tpope/vim-fugitive'
 
 call vundle#end()
 filetype plugin indent on
@@ -35,6 +36,15 @@ syntax on
 set autoindent
 set smartindent
 set number
+
+set smartcase
+
+set cursorline
+set noerrorbells
+set title
+
+set dir=~/.vim/.cache
+
 "}}}
 
 " File Type Settings {{{
