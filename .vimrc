@@ -1,8 +1,5 @@
 " Plugin Ideas:
 " * WPM tracker and coach. Could count percent of backspaces or whatever.
-"
-" TODO:
-" * Add bundle directories to version control as submodules.
 
 let mapleader = "-"
 let maplocalleader = "="
@@ -16,8 +13,6 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
-
-Plugin 'honza/vim-snippets'
 
 Plugin 'SirVer/ultisnips'
 
