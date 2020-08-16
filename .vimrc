@@ -1,5 +1,9 @@
 " Plugin Ideas:
 " * WPM tracker and coach. Could count percent of backspaces or whatever.
+"
+" TODO:
+" * Nice tab navigation
+" * ctrl-w parses it's as one word?
 
 let mapleader = "-"
 let maplocalleader = "="
@@ -57,6 +61,7 @@ augroup spell
 augroup END
 
 " TODO: What other files should I linewrap?
+" TODO: Is this line working as I want?
 augroup linewrap
 	autocmd!
 	autocmd Filetype bib setlocal wrap
@@ -130,6 +135,7 @@ endfunction
 augroup comment
 	autocmd!
 	autocmd FileType python nnoremap <expr> <buffer> <localleader>c IsComment() ? 'mc^x`c' : 'mcI#<esc>`c'
+	autocmd FileType sh nnoremap <expr> <buffer> <localleader>c IsComment() ? 'mc^x`c' : 'mcI#<esc>`c'
 	autocmd FileType modula2 nnoremap <expr> <buffer> <localleader>c IsComment() ? 'mc^xx`c' : 'mcI--<esc>`c'
 	autocmd FileType vim nnoremap <expr> <buffer> <localleader>c IsComment() ? 'mc^xx`c' : 'mcI"<space><esc>`c'
 	autocmd FileType tex nnoremap <expr> <buffer> <localleader>c IsComment() ? 'mc^xx`c' : 'mcI%<space><esc>`c'
