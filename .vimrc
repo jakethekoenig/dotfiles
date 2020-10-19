@@ -2,8 +2,14 @@
 " * WPM tracker and coach. Could count percent of backspaces or whatever.
 "
 " TODO:
-" * Nice tab navigation
+" * Figure out nice way to save sessions. Both terminal and vim.
+" * Add comma at end of last json line when making a new line
+" * Search which excludes comments
 " * ctrl-w parses it's as one word?
+" * Automatically start next entry when I edit my journal?
+"
+" TODONE:
+" * Nice tab navigation
 
 let mapleader = "-"
 let maplocalleader = "="
@@ -49,6 +55,12 @@ set title
 set dir=~/.vim/.cache
 set undofile
 set undodir=~/.vim/undodir
+"}}}
+
+" Normal Mode Commands {{{
+nnoremap <S-TAB> gT
+nnoremap <C-I> gt
+nnoremap <C-v> i<C-r>+<esc>
 "}}}
 
 " File Type Settings {{{
@@ -165,7 +177,7 @@ AbbrevWord prob probability
 AbbrevWord prbs probabilities
 AbbrevWord whp with high probability
 
-" Logic (Mathematical bent but not purely
+" Logic (Mathematical bent but not purely)
 AbbrevWord wlog without loss of generality
 AbbrevWord wrt with respect to
 AbbrevWord te there exists
@@ -182,6 +194,11 @@ AbbrevWord ow otherwise
 AbbrevWord resp respectively
 AbbrevWord bc because
 AbbrevWord wo without
+AbbrevWord surj surjective
+AbbrevWord inj injective
+AbbrevWord bij bijective
+AbbrevWord iso isomorphism
+AbbrevWord equiv equivalent
 
 " Linear Algebra
 AbbrevWord ind independent
@@ -192,6 +209,7 @@ AbbrevWord codim codimension
 AbbrevWord cok cokernel
 AbbrevWord dmn dimension
 AbbrevWord dmnl dimensional
+AbbrevWord vs vector space
 
 " General Math
 AbbrevWord expy exponentially
