@@ -2,14 +2,23 @@
 " * WPM tracker and coach. Could count percent of backspaces or whatever.
 "
 " TODO:
+" * Change abbrev function to handle irregular words?
 " * Figure out nice way to save sessions. Both terminal and vim.
 " * Add comma at end of last json line when making a new line
 " * Search which excludes comments
 " * ctrl-w parses it's as one word?
 " * Automatically start next entry when I edit my journal?
+" * autocorrect double first letter capitalizations?
+" * <C-S-T> to recover closed buffers
+" * Cron backup also to s3 bucket
+" * Figure out why vim is starting up slow.
+" * Make a TODO manager for random TODO lists in files.
 "
 " TODONE:
+" * Prettier vim opening splash screen?
 " * Nice tab navigation
+" * <C-v> pastes like a normal text editor.
+" * make a cron job which backs up some number of my files to my raspberry pi
 
 let mapleader = "-"
 let maplocalleader = "="
@@ -55,12 +64,68 @@ set title
 set dir=~/.vim/.cache
 set undofile
 set undodir=~/.vim/undodir
+
+" Start Up Screen {{{
+
+fun! Start()
+
+  "Create a new unnamed buffer to display our splash screen inside of.
+  enew
+
+  " Set some options for this buffer to make sure that does not act like a
+  " normal winodw.
+  setlocal
+    \ bufhidden=wipe
+    \ buftype=nofile
+    \ nobuflisted
+    \ nocursorcolumn
+    \ nocursorline
+    \ nolist
+    \ nonumber
+    \ noswapfile
+    \ norelativenumber
+
+  " Our message goes here. Mine is simple.
+  exec ":r !fortune"
+  exec ":r ~/.vim/splash.txt"
+
+  " When we are done writing out message set the buffer to readonly.
+  setlocal
+    \ nomodifiable
+    \ nomodified
+
+  " Just like with the default start page, when we switch to insert mode
+  " a new buffer should be opened which we can then later save.
+  nnoremap <buffer><silent> e :enew<CR>
+  nnoremap <buffer><silent> i :enew <bar> startinsert<CR>
+  nnoremap <buffer><silent> o :enew <bar> startinsert<CR>
+
+
+endfun
+
+" http://learnvimscriptthehardway.stevelosh.com/chapters/12.html
+" Autocommands are a way of setting handlers for certain events.
+" `VimEnter` is the event we want to handle. http://vimdoc.sourceforge.net/htmldoc/autocmd.html#VimEnter
+" The cleene star (`*`) is a pattern to indicate which filenames this Autocommand will apply too. In this case, star means all files.
+" We will call the `Start` function to handle this event.
+
+" http://vimdoc.sourceforge.net/htmldoc/eval.html#argc%28%29
+" The number of files in the argument list of the current window.
+" If there are 0 then that means this is a new session and we want to display
+" our custom splash screen.
+if argc() == 0
+  autocmd VimEnter * call Start()
+endif
+
+" }}}
 "}}}
 
 " Normal Mode Commands {{{
 nnoremap <S-TAB> gT
 nnoremap <C-I> gt
-nnoremap <C-v> i<C-r>+<esc>
+nnoremap <C-s> :w
+nnoremap <C-v> "+p
+inoremap <C-v> <C-r>+
 "}}}
 
 " File Type Settings {{{
@@ -77,7 +142,7 @@ augroup END
 augroup linewrap
 	autocmd!
 	autocmd Filetype bib setlocal wrap
-	autocmd Filetype bib setlocal linewidth=80
+	autocmd Filetype bib setlocal textwidth=80
 augroup END
 
 " This command is really just for editing tex files but it seems harmless to
@@ -174,10 +239,14 @@ AbbrevWord disted distributed
 AbbrevWord rv random variable
 AbbrevWord rV random Variable
 AbbrevWord prob probability
+AbbrevWord probly probably
 AbbrevWord prbs probabilities
 AbbrevWord whp with high probability
+AbbrevWord rMT random matrix theory
 
 " Logic (Mathematical bent but not purely)
+AbbrevWord ew elsewhere
+AbbrevWord tf therefore
 AbbrevWord wlog without loss of generality
 AbbrevWord wrt with respect to
 AbbrevWord te there exists
@@ -221,6 +290,9 @@ AbbrevWord padic $p$-adic
 AbbrevWord poly polynomial
 AbbrevWord seq sequence
 AbbrevWord ctns continuous
+
+" Analysis
+AbbrevWord triineq triangle inequality
 
 
 iabbrev ret return
