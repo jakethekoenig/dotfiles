@@ -2,6 +2,8 @@
 " * WPM tracker and coach. Could count percent of backspaces or whatever.
 "
 " TODO:
+" * tex insert copied equation command?
+" * Improve underline style
 " * Change abbrev function to handle irregular words?
 " * Figure out nice way to save sessions. Both terminal and vim.
 " * Add comma at end of last json line when making a new line
@@ -19,6 +21,12 @@
 " * Nice tab navigation
 " * <C-v> pastes like a normal text editor.
 " * make a cron job which backs up some number of my files to my raspberry pi
+"
+
+" Don't fully understand why I need the following but it fixed something
+" broken with tmux.
+set background=dark
+set t_Co=256
 
 let mapleader = "-"
 let maplocalleader = "="
@@ -35,6 +43,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'SirVer/ultisnips'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
+Plugin 'junegunn/goyo.vim'
 
 call vundle#end()
 
@@ -43,7 +52,7 @@ filetype plugin indent on
 
 " Ultisnips {{{
 let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpForwardTrigger="<c-f>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsEditSplit="vertical"
 " }}}
@@ -65,6 +74,9 @@ set dir=~/.vim/.cache
 set undofile
 set undodir=~/.vim/undodir
 
+set splitbelow
+set splitright
+set hidden
 " Start Up Screen {{{
 
 fun! Start()
@@ -121,8 +133,15 @@ endif
 "}}}
 
 " Normal Mode Commands {{{
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
 nnoremap <S-TAB> gT
 nnoremap <C-I> gt
+" TODO: somehow tab is shading <C_I>? why?
+nnoremap <C-P> <C-I>
 nnoremap <C-s> :w
 nnoremap <C-v> "+p
 inoremap <C-v> <C-r>+
@@ -267,7 +286,6 @@ AbbrevWord surj surjective
 AbbrevWord inj injective
 AbbrevWord bij bijective
 AbbrevWord iso isomorphism
-AbbrevWord equiv equivalent
 
 " Linear Algebra
 AbbrevWord ind independent
@@ -293,6 +311,8 @@ AbbrevWord ctns continuous
 
 " Analysis
 AbbrevWord triineq triangle inequality
+AbbrevWord tbt therefore by the
+AbbrevWord ineq inequality
 
 
 iabbrev ret return
