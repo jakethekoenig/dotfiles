@@ -15,6 +15,7 @@
 " * Cron backup also to s3 bucket
 " * Figure out why vim is starting up slow.
 " * Make a TODO manager for random TODO lists in files.
+" * Just use git submodules and built in plugin manager instead of Vundle
 "
 " TODONE:
 " * Prettier vim opening splash screen?
@@ -98,7 +99,6 @@ fun! Start()
     \ norelativenumber
 
   " Our message goes here. Mine is simple.
-  exec ":r !fortune"
   exec ":r ~/.vim/splash.txt"
 
   " When we are done writing out message set the buffer to readonly.
