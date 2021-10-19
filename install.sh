@@ -2,11 +2,21 @@
 # Quick script to add all the dotfile configs to the home directory
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-ln -s vim ~/.vim
-ln -s vim/vimrc ~/.vimrc
+echo ~
+echo $CURRENT_DIR
 
-ln -s zsh/zshrc ~/.zshrc
+mkdir temp
+rm -rf ~/.vim
+rm ~/.vimrc
+ln -s "$CURRENT_DIR/vim" ~/.vim
+ln -s "$CURRENT_DIR/vim/vimrc" ~/.vimrc
+rm -rf temp
+
+rm ~/.zshrc
+ln -s "$CURRENT_DIR/zsh/zshrc" ~/.zshrc
 source ~/.zshrc
 
-ln -s tmux/ ~/.tmux
-ln -s tmux/tmux.conf ~/.tmux.conf
+rm -rf ~/.tmux
+rm ~/.tmux.conf
+ln -s "$CURRENT_DIR/tmux/" ~/.tmux
+ln -s "$CURRENT_DIR/tmux/tmux.conf" ~/.tmux.conf
