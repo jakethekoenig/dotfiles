@@ -67,6 +67,7 @@ set smartindent
 set number
 colorscheme desert 
 set cursorline
+set cursorcolumn
 hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white
 
 set smartcase
