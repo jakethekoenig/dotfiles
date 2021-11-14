@@ -66,10 +66,11 @@ set autoindent
 set smartindent
 set number
 colorscheme desert 
+set cursorline
+hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white
 
 set smartcase
 
-set cursorline
 set noerrorbells
 set title
 
