@@ -2,6 +2,7 @@
 " * WPM tracker and coach. Could count percent of backspaces or whatever.
 "
 " TODO:
+" * Goyo turns off cursor and on spell
 " * tex insert copied equation command?
 " * Improve underline style
 " * Change abbrev function to handle irregular words?
@@ -68,6 +69,8 @@ set number
 colorscheme desert 
 set cursorline
 set cursorcolumn
+" TODO: I like dark red for multiple windows open but it's a little much when
+" editing just one file.
 hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white
 " Needed to backspace over eol on mac
 set backspace=2
