@@ -69,6 +69,8 @@ colorscheme desert
 set cursorline
 set cursorcolumn
 hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white
+" Needed to backspace over eol on mac
+set backspace=2
 
 set smartcase
 

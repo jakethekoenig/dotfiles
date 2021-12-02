@@ -1,3 +1,6 @@
+# IDEAS: command to alias last command
+# Command to see status of dotfiles/make commit from any dir.
+
 PROMPT='%F{green}%2~%f %# '
 
 setopt histignorealldups sharehistory
@@ -17,12 +20,13 @@ HISTFILE=~/.zsh_history
 autoload -Uz compinit
 compinit
 
+# TODO: understand zstyle better.
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
 zstyle ':completion:*' format 'Completing %d'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' menu select=2
-eval "$(dircolors -b)"
+# eval "$(dircolors -b)"
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
@@ -38,7 +42,7 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 # ja3k stuff TODO: is this the most 'unix-y' way to do this? Should I put them on my path?
 # TODO: put the ones more specific to this machine on a separate untracked file.
 alias py='python3'
-alias ls='ls --color=auto'
+alias ls='ls'
 
 # These names are chosen to match my vim short hands standing for 'edit vimrc', 'source vimrc'
 alias ev='vi ~/.zshrc'
