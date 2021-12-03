@@ -17,13 +17,6 @@
 " * Figure out why vim is starting up slow.
 " * Make a TODO manager for random TODO lists in files.
 " * Just use git submodules and built in plugin manager instead of Vundle
-"
-" TODONE:
-" * Prettier vim opening splash screen?
-" * Nice tab navigation
-" * <C-v> pastes like a normal text editor.
-" * make a cron job which backs up some number of my files to my raspberry pi
-"
 
 " Don't fully understand why I need the following but it fixed something
 " broken with tmux.
