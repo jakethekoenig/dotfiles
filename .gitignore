@@ -5,3 +5,4 @@ vim/bundle/*
 .cache/
 tmux/plugins/*
 tmux/resurrect
+zsh/local/*.zsh

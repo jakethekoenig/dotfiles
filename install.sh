@@ -13,7 +13,9 @@ ln -s "$CURRENT_DIR/vim/vimrc" ~/.vimrc
 rm -rf temp
 
 rm ~/.zshrc
+rm -r ~/.zsh
 ln -s "$CURRENT_DIR/zsh/zshrc" ~/.zshrc
+ln -s "$CURRENT_DIR/zsh/local" ~/.zsh
 source ~/.zshrc
 
 rm -rf ~/.tmux
