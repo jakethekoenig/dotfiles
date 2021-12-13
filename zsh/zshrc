@@ -43,6 +43,7 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 # TODO: put the ones more specific to this machine on a separate untracked file.
 alias py='python3'
 alias ls='ls'
+alias gpom='git push origin master'
 
 # These names are chosen to match my vim short hands standing for 'edit vimrc', 'source vimrc'
 alias ev='vi ~/.zshrc'
