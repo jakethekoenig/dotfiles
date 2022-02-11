@@ -44,6 +44,8 @@ Plugin 'junegunn/goyo.vim'
 call vundle#end()
 
 filetype plugin indent on
+
+command! Tree :NERDTree
 " }}}
 
 " Ultisnips {{{
@@ -59,12 +61,13 @@ syntax on
 set autoindent
 set smartindent
 set number
-colorscheme desert 
+colorscheme darkblue
 set cursorline
 set cursorcolumn
 " TODO: I like dark red for multiple windows open but it's a little much when
 " editing just one file.
-hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white
+hi CursorLine cterm=NONE ctermbg=darkgrey
+hi CursorLineNr cterm=bold ctermbg=red ctermfg=darkblue
 " Needed to backspace over eol on mac
 set backspace=2
 
