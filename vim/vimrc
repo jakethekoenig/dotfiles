@@ -31,6 +31,7 @@ let maplocalleader = "="
 set nocompatible
 filetype off
 
+" TODO: find more plugins
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
@@ -40,12 +41,18 @@ Plugin 'SirVer/ultisnips'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
 Plugin 'junegunn/goyo.vim'
+Plugin 'wakatime/vim-wakatime'
+Plugin 'mbbill/undotree'
+" TODO: customize
+Plugin 'vim-airline/vim-airline'
 
 call vundle#end()
 
 filetype plugin indent on
 
 command! Tree :NERDTree
+nnoremap <F6> :NERDTreeToggle<CR>
+nnoremap <F5> :UndotreeToggle<CR>
 " }}}
 
 " Ultisnips {{{
@@ -64,6 +71,8 @@ set number
 colorscheme darkblue
 set cursorline
 set cursorcolumn
+set scrolloff=5
+set rnu
 " TODO: I like dark red for multiple windows open but it's a little much when
 " editing just one file.
 hi CursorLine cterm=NONE ctermbg=darkgrey
@@ -131,7 +140,8 @@ endfun
 " If there are 0 then that means this is a new session and we want to display
 " our custom splash screen.
 if argc() == 0
-  autocmd VimEnter * call Start()
+  " autocmd VimEnter * call Start()
+  " TODO: reenable?
 endif
 
 " }}}
