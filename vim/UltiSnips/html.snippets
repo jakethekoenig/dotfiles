@@ -8,8 +8,18 @@ $2
 </${1/(\w+).*/$1/}>
 endsnippet
 
+snippet li
+<li>$1</li>
+endsnippet
+
 snippet for "jinja for block"
 {% for $1 %}
 $2
 {% endfor %}
+endsnippet
+
+snippet block "jinja block"
+{% $1 %}
+$2
+{% end${1/(\w+).*/$1/} %}
 endsnippet

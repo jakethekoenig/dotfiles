@@ -65,6 +65,7 @@ let g:UltiSnipsEditSplit="vertical"
 " Aesthetics {{{
 " TODO: Is this the prettiest you can do?
 syntax on
+set autoread
 set autoindent
 set smartindent
 set number
@@ -75,7 +76,7 @@ set scrolloff=5
 set rnu
 " TODO: I like dark red for multiple windows open but it's a little much when
 " editing just one file.
-hi CursorLine cterm=NONE ctermbg=darkgrey
+" hi CursorLine cterm=NONE ctermbg=darkgrey
 hi CursorLineNr cterm=bold ctermbg=red ctermfg=darkblue
 " Needed to backspace over eol on mac
 set backspace=2
