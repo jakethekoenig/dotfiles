@@ -1,3 +1,4 @@
+" Notes {{{
 " Plugin Ideas:
 " * WPM tracker and coach. Could count percent of backspaces or whatever.
 "
@@ -9,19 +10,14 @@
 " * Figure out nice way to save sessions. Both terminal and vim.
 " * Add comma at end of last json line when making a new line
 " * Search which excludes comments
-" * ctrl-w parses it's as one word?
-" * Automatically start next entry when I edit my journal?
+" * ctrl-w parses it's as one word?  " * Automatically start next entry when I edit my journal?
 " * autocorrect double first letter capitalizations?
 " * <C-S-T> to recover closed buffers
 " * Cron backup also to s3 bucket
 " * Figure out why vim is starting up slow.
 " * Make a TODO manager for random TODO lists in files.
 " * Just use git submodules and built in plugin manager instead of Vundle
-
-" Don't fully understand why I need the following but it fixed something
-" broken with tmux.
-set background=dark
-set t_Co=256
+" }}}
 
 let mapleader = "-"
 let maplocalleader = "="
@@ -77,10 +73,14 @@ set rnu
 " TODO: I like dark red for multiple windows open but it's a little much when
 " editing just one file.
 " hi CursorLine cterm=NONE ctermbg=darkgrey
-hi CursorLineNr cterm=bold ctermbg=red ctermfg=darkblue
+hi CursorLineNr cterm=bold ctermbg=red ctermbg=darkred
 " Needed to backspace over eol on mac
 set backspace=2
 
+" Don't fully understand why I need the following but it fixed something
+" broken with tmux.
+set background=dark
+set t_Co=256
 set smartcase
 
 set noerrorbells
@@ -90,7 +90,7 @@ set dir=~/.vim/.cache
 set undofile
 set undodir=~/.vim/undodir
 
-set splitbelow
+set nosplitbelow
 set splitright
 set hidden
 " Start Up Screen {{{
@@ -186,7 +186,7 @@ onoremap i$ :<c-u>normal! F$lvf$h<cr>
 "}}}
 
 " Extending Files {{{
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>ev :split $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 nnoremap <leader>es :UltiSnipsEdit<cr>
 " }}}

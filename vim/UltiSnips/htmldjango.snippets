@@ -1,0 +1,26 @@
+
+snippet tag "general purpose html tag"
+<${1:p}>$2</${1/(\w+).*/$1/}>
+endsnippet
+
+snippet tagm "multi line general purpose html tag"
+<${1:p}>
+$2
+</${1/(\w+).*/$1/}>
+endsnippet
+
+snippet li
+<li>$1</li>
+endsnippet
+
+snippet for "jinja for block"
+{% for $1 %}
+$2
+{% endfor %}
+endsnippet
+
+snippet block "jinja block"
+{% $1 %}
+$2
+{% end${1/(\w+).*/$1/} %}
+endsnippet
