@@ -180,6 +180,11 @@ augroup linewrap
 	autocmd Filetype bib setlocal textwidth=80
 augroup END
 
+augroup skeletons
+	autocmd!
+	autocmd BufNewFile *.sh 0r ~/.vim/skeletons/bash.sh
+augroup END
+
 " This command is really just for editing tex files but it seems harmless to
 " make generally available.
 onoremap i$ :<c-u>normal! F$lvf$h<cr>
