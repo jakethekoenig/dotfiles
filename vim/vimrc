@@ -3,6 +3,7 @@
 " * WPM tracker and coach. Could count percent of backspaces or whatever.
 "
 " TODO:
+" * Put git branch in register
 " * Goyo turns off cursor and on spell
 " * tex insert copied equation command?
 " * Improve underline style
@@ -14,7 +15,6 @@
 " * autocorrect double first letter capitalizations?
 " * <C-S-T> to recover closed buffers
 " * Cron backup also to s3 bucket
-" * Figure out why vim is starting up slow.
 " * Make a TODO manager for random TODO lists in files.
 " * Just use git submodules and built in plugin manager instead of Vundle
 " }}}
@@ -70,6 +70,7 @@ set cursorline
 set cursorcolumn
 set scrolloff=5
 set rnu
+set path+=**
 " TODO: I like dark red for multiple windows open but it's a little much when
 " editing just one file.
 " hi CursorLine cterm=NONE ctermbg=darkgrey
@@ -92,7 +93,7 @@ set undodir=~/.vim/undodir
 
 set nosplitbelow
 set splitright
-set hidden
+" set hidden
 " Start Up Screen {{{
 
 fun! Start()
@@ -199,6 +200,7 @@ nnoremap <leader>es :UltiSnipsEdit<cr>
 " Insert Mode Commands {{{
 inoremap <c-u> <esc>lviwUwi
 inoremap jk <esc>
+cnoremap jk <C-f>
 inoremap :w <esc>:w<cr>
 noremap! <C-BS> <C-w>
 noremap! <C-h> <C-w>
