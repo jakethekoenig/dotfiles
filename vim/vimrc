@@ -65,7 +65,7 @@ set autoread
 set autoindent
 set smartindent
 set number
-colorscheme darkblue
+colorscheme murphy
 set cursorline
 set cursorcolumn
 set scrolloff=5
@@ -93,6 +93,12 @@ set undodir=~/.vim/undodir
 
 set nosplitbelow
 set splitright
+
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+
 " set hidden
 " Start Up Screen {{{
 
@@ -160,8 +166,8 @@ nnoremap <C-I> gt
 " TODO: somehow tab is shading <C_I>? why?
 nnoremap <C-P> <C-I>
 nnoremap <C-s> :w
-nnoremap <C-v> "+p
-inoremap <C-v> <C-r>+
+nnoremap <C-v> :set paste<CR>"+p:set nopaste<CR>
+inoremap <C-v> <Esc>:set paste<CR>"+p:set nopaste<CR>i
 "}}}
 
 " File Type Settings {{{
