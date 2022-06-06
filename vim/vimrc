@@ -61,6 +61,7 @@ let g:UltiSnipsEditSplit="vertical"
 " Aesthetics {{{
 " TODO: Is this the prettiest you can do?
 syntax on
+set wildmenu
 set autoread
 set autoindent
 set smartindent
