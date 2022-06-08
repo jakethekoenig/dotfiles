@@ -42,6 +42,8 @@ Plugin 'mbbill/undotree'
 " TODO: customize
 Plugin 'vim-airline/vim-airline'
 
+Plugin 'file:///home/jaek/Development/VimOutline'
+
 call vundle#end()
 
 filetype plugin indent on
@@ -166,9 +168,10 @@ nnoremap <S-TAB> gT
 nnoremap <C-I> gt
 " TODO: somehow tab is shading <C_I>? why?
 nnoremap <C-P> <C-I>
-nnoremap <C-s> :w
 nnoremap <C-v> :set paste<CR>"+p:set nopaste<CR>
 inoremap <C-v> <Esc>:set paste<CR>"+p:set nopaste<CR>i
+
+nnoremap <leader>n :tabe ~/.notes.wofl<CR>
 "}}}
 
 " File Type Settings {{{
@@ -178,6 +181,7 @@ augroup spell
 	autocmd Filetype tex setlocal spell
 	autocmd Filetype html setlocal spell
 	autocmd Filetype text setlocal spell
+	autocmd Filetype markdown setlocal spell
 augroup END
 
 " TODO: What other files should I linewrap?
