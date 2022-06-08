@@ -42,7 +42,7 @@ Plugin 'mbbill/undotree'
 " TODO: customize
 Plugin 'vim-airline/vim-airline'
 
-Plugin 'file:///home/jaek/Development/VimOutline'
+Plugin 'jakethekoenig/VimOutline'
 
 call vundle#end()
 
