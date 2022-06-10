@@ -42,6 +42,8 @@ Plugin 'mbbill/undotree'
 " TODO: customize
 Plugin 'vim-airline/vim-airline'
 
+" Local version of the plugin. Uncomment to test changes.
+" Plugin 'file:///home/jaek/Development/VimOutline'
 Plugin 'jakethekoenig/VimOutline'
 
 call vundle#end()
