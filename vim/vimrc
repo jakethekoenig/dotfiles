@@ -31,6 +31,7 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
+Plugin 'github/copilot.vim'
 Plugin 'preservim/nerdtree'
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'SirVer/ultisnips'
@@ -44,6 +45,7 @@ Plugin 'vim-airline/vim-airline'
 
 " Local version of the plugin. Uncomment to test changes.
 " Plugin 'file:///home/jaek/Development/VimOutline'
+Plugin 'file:///home/jaek/Development/autogit.vim'
 Plugin 'jakethekoenig/VimOutline'
 
 call vundle#end()
@@ -173,7 +175,8 @@ nnoremap <C-P> <C-I>
 nnoremap <C-v> :set paste<CR>"+p:set nopaste<CR>
 inoremap <C-v> <Esc>:set paste<CR>"+p:set nopaste<CR>i
 
-nnoremap <leader>n :tabe ~/.notes.wofl<CR>
+nnoremap <leader>n :tabe ~/notes/notes.wofl<CR>
+nnoremap <leader>j :tabe ~/notes/journal.txt<CR>:Goyo<CR>
 "}}}
 
 " File Type Settings {{{
@@ -181,7 +184,7 @@ set spellfile=~/.vim/spell/en.utf-8.add
 augroup spell
 	autocmd!
 	autocmd Filetype tex setlocal spell
-	autocmd Filetype html setlocal spell
+	autocmd Filetype html,htmldjango setlocal spell
 	autocmd Filetype text setlocal spell
 	autocmd Filetype markdown setlocal spell
 augroup END
@@ -272,7 +275,7 @@ augroup comment
 	autocmd FileType modula2 nnoremap <expr> <buffer> <localleader>c IsComment() ? 'mc^xx`c' : 'mcI--<esc>`c'
 	autocmd FileType vim nnoremap <expr> <buffer> <localleader>c IsComment() ? 'mc^xx`c' : 'mcI"<space><esc>`c'
 	autocmd FileType tex nnoremap <expr> <buffer> <localleader>c IsComment() ? 'mc^xx`c' : 'mcI%<space><esc>`c'
-	autocmd FileType html nnoremap <expr> <buffer> <localleader>c IsComment() ? 'mc^5x$4Xx`c' : 'mcI<!--<space><esc>$a<space>--!><esc>`c'
+	autocmd FileType html,htmldjango nnoremap <expr> <buffer> <localleader>c IsComment() ? 'mc^5x$4Xx`c' : 'mcI<!--<space><esc>$a<space>--!><esc>`c'
 augroup END
 " }}}
 
