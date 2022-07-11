@@ -45,7 +45,8 @@ Plugin 'vim-airline/vim-airline'
 
 " Local version of the plugin. Uncomment to test changes.
 " Plugin 'file:///home/jaek/Development/VimOutline'
-Plugin 'file:///home/jaek/Development/autogit.vim'
+" Plugin 'file:///home/jaek/Development/autogit.vim'
+Plugin 'jakethekoenig/autogit.vim'
 Plugin 'jakethekoenig/VimOutline'
 
 call vundle#end()
@@ -173,7 +174,7 @@ nnoremap <C-I> gt
 " TODO: somehow tab is shading <C_I>? why?
 nnoremap <C-P> <C-I>
 nnoremap <C-v> :set paste<CR>"+p:set nopaste<CR>
-inoremap <C-v> <Esc>:set paste<CR>"+p:set nopaste<CR>i
+inoremap <C-v> <Esc>:set paste<CR>"+p:set nopaste<CR>a
 
 nnoremap <leader>n :tabe ~/notes/notes.wofl<CR>
 nnoremap <leader>j :tabe ~/notes/journal.txt<CR>:Goyo<CR>
@@ -313,6 +314,9 @@ AbbrevWord fa for all
 AbbrevWord lhs left hand side
 AbbrevWord rhs right hand side
 AbbrevWord defn definition
+AbbrevWord defly definitely
+AbbrevWord b4 before
+AbbrevWord im I'm
 AbbrevWord fn function
 AbbrevWord cond condition
 AbbrevWord st such that
@@ -321,6 +325,7 @@ AbbrevWord sa such as
 AbbrevWord ow otherwise
 AbbrevWord resp respectively
 AbbrevWord bc because
+AbbrevWord rprv representative
 AbbrevWord wo without
 AbbrevWord surj surjective
 AbbrevWord inj injective
