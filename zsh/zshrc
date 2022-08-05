@@ -42,13 +42,14 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 # ja3k stuff TODO: is this the most 'unix-y' way to do this? Should I put them on my path?
 # TODO: put the ones more specific to this machine on a separate untracked file.
 alias py='python3'
-alias python='python3'
 alias ls='ls --color'
 alias gpom='git push origin master'
 
 # These names are chosen to match my vim short hands standing for 'edit vimrc', 'source vimrc'
 alias ev='vi ~/.zshrc'
+alias lv='vi ~/.zsh/local.zsh'
 alias sv='source ~/.zshrc'
+alias slv='source ~/.zsh/local.zsh'
 
 for conf in "$HOME/.zsh/"*.zsh; do
   source "${conf}"
