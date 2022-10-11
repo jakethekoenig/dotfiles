@@ -11,7 +11,7 @@
 " * Figure out nice way to save sessions. Both terminal and vim.
 " * Add comma at end of last json line when making a new line
 " * Search which excludes comments
-" * ctrl-w parses it's as one word?  " * Automatically start next entry when I edit my journal?
+" * ctrl-w parses it's as one word?
 " * autocorrect double first letter capitalizations?
 " * <C-S-T> to recover closed buffers
 " * Cron backup also to s3 bucket
@@ -56,6 +56,14 @@ filetype plugin indent on
 command! Tree :NERDTree
 nnoremap <F6> :NERDTreeToggle<CR>
 nnoremap <F5> :UndotreeToggle<CR>
+
+" Goyo {{{
+function! MyGoyo()
+    set nocursorline
+    set nocursorcolumn
+    Goyo
+endfunction
+command! Goy call MyGoyo()
 " }}}
 
 " Ultisnips {{{
@@ -63,6 +71,8 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-f>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsEditSplit="vertical"
+" }}}
+
 " }}}
 
 " Aesthetics {{{
@@ -109,14 +119,8 @@ set expandtab
 
 " set hidden
 " Start Up Screen {{{
-
 fun! Start()
-
-  "Create a new unnamed buffer to display our splash screen inside of.
   enew
-
-  " Set some options for this buffer to make sure that does not act like a
-  " normal winodw.
   setlocal
     \ bufhidden=wipe
     \ buftype=nofile
@@ -128,36 +132,19 @@ fun! Start()
     \ noswapfile
     \ norelativenumber
 
-  " Our message goes here. Mine is simple.
   exec ":r ~/.vim/splash.txt"
 
-  " When we are done writing out message set the buffer to readonly.
   setlocal
     \ nomodifiable
     \ nomodified
 
-  " Just like with the default start page, when we switch to insert mode
-  " a new buffer should be opened which we can then later save.
   nnoremap <buffer><silent> e :enew<CR>
   nnoremap <buffer><silent> i :enew <bar> startinsert<CR>
   nnoremap <buffer><silent> o :enew <bar> startinsert<CR>
-
-
 endfun
 
-" http://learnvimscriptthehardway.stevelosh.com/chapters/12.html
-" Autocommands are a way of setting handlers for certain events.
-" `VimEnter` is the event we want to handle. http://vimdoc.sourceforge.net/htmldoc/autocmd.html#VimEnter
-" The cleene star (`*`) is a pattern to indicate which filenames this Autocommand will apply too. In this case, star means all files.
-" We will call the `Start` function to handle this event.
-
-" http://vimdoc.sourceforge.net/htmldoc/eval.html#argc%28%29
-" The number of files in the argument list of the current window.
-" If there are 0 then that means this is a new session and we want to display
-" our custom splash screen.
 if argc() == 0
   " autocmd VimEnter * call Start()
-  " TODO: reenable?
 endif
 
 " }}}
@@ -177,10 +164,11 @@ nnoremap <C-v> :set paste<CR>"+p:set nopaste<CR>
 inoremap <C-v> <Esc>:set paste<CR>"+p:set nopaste<CR>a
 
 nnoremap <leader>n :tabe ~/notes/notes.wofl<CR>
-nnoremap <leader>j :tabe ~/notes/journal.txt<CR>:Goyo<CR>
+nnoremap <leader>j :tabe ~/notes/journal.txt<CR>:Goy<CR>
 "}}}
 
 " File Type Settings {{{
+" TODO: put these in file files
 set spellfile=~/.vim/spell/en.utf-8.add
 augroup spell
 	autocmd!
@@ -262,7 +250,6 @@ augroup END
 " }}}
 
 " Commenting Autocommands {{{
-
 " TODO: make this line work for macaulay files
 function! IsComment()
 	let hg = join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'))
