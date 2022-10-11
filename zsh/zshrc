@@ -39,8 +39,9 @@ zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
-# ja3k stuff TODO: is this the most 'unix-y' way to do this? Should I put them on my path?
-# TODO: put the ones more specific to this machine on a separate untracked file.
+# Shorthands
+alias vi='nvim'
+alias v='nvim'
 alias py='python3'
 alias ls='ls --color'
 alias gpom='git push origin master'
