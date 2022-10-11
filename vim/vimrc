@@ -90,7 +90,7 @@ set cursorline
 set cursorcolumn
 set scrolloff=5
 set rnu
-set path+=**
+set path+=**3
 " TODO: I like dark red for multiple windows open but it's a little much when
 " editing just one file.
 " hi CursorLine cterm=NONE ctermbg=darkgrey
