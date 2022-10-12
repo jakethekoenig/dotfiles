@@ -1,5 +1,6 @@
 .netrwhist
 undodir/
+undodir_zsh/
 vim/bundle/*
 !vim/bundle/Vundle.vim
 .cache/
