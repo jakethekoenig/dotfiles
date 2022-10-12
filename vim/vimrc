@@ -45,6 +45,11 @@ Plugin 'mbbill/undotree'
 Plugin 'vim-airline/vim-airline'
 Plugin 'kien/rainbow_parentheses.vim'
 
+" Closure
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'guns/vim-sexp'
+Plugin 'liquidz/vim-iced'
+
 " Local version of the plugin. Uncomment to test changes.
 " Plugin 'file:///home/jaek/Development/VimOutline'
 " Plugin 'file:///home/jaek/Development/autogit.vim'
@@ -52,6 +57,7 @@ Plugin 'jakethekoenig/autogit.vim'
 Plugin 'jakethekoenig/VimOutline'
 
 call vundle#end()
+let g:iced_enable_default_key_mappings = v:true
 
 filetype plugin indent on
 
