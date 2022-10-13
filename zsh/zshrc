@@ -43,7 +43,8 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 alias vi='nvim'
 alias v='nvim'
 alias py='python3'
-alias ls='ls --color'
+export CLICOLOR=1
+export LSCOLORS=GxFxCxDxBxegedabagaced
 alias gpom='git push origin master'
 
 # These names are chosen to match my vim short hands standing for 'edit vimrc', 'source vimrc'
