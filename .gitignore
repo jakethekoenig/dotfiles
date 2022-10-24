@@ -7,3 +7,4 @@ vim/bundle/*
 tmux/plugins/*
 tmux/resurrect
 zsh/local/*.zsh
+vim/nvim_undodir
