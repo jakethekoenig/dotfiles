@@ -62,12 +62,14 @@ nnoremap <F5> :UndotreeToggle<CR>
 
 " Goyo {{{
 function! s:goyo_enter()
+    colorscheme morning
     set nocursorline
     set nocursorcolumn
     set spell
 endfunction
 
 function! s:goyo_leave()
+    colorscheme murphy
     set cursorline
     set cursorcolumn
     set nospell
@@ -201,7 +203,7 @@ nnoremap <C-v> :set paste<CR>"+p:set nopaste<CR>
 inoremap <C-v> <Esc>:set paste<CR>"+p:set nopaste<CR>a
 
 nnoremap <leader>n :tabe ~/notes/notes.wofl<CR>
-nnoremap <leader>j :tabe ~/notes/journal.txt<CR>:Goy<CR>
+nnoremap <leader>j :tabe ~/notes/journal.txt<CR>:Goyo<CR>
 "}}}
 
 " File Type Settings {{{
