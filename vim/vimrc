@@ -3,17 +3,13 @@
 " * WPM tracker and coach. Could count percent of backspaces or whatever.
 "
 " TODO:
+" * Put filetype specific commands in ftplugin files.
 " * Put git branch in register
 " * tex insert copied equation command?
-" * Improve underline style
-" * Change abbrev function to handle irregular words?
-" * Figure out nice way to save sessions. Both terminal and vim.
 " * Add comma at end of last json line when making a new line
 " * Search which excludes comments
-" * ctrl-w parses it's as one word?
 " * autocorrect double first letter capitalizations?
 " * <C-S-T> to recover closed buffers
-" * Cron backup also to s3 bucket
 " * Make a TODO manager for random TODO lists in files.
 " * Just use git submodules and built in plugin manager instead of Vundle
 " }}}
