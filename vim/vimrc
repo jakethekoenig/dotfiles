@@ -4,7 +4,6 @@
 "
 " TODO:
 " * Put git branch in register
-" * Goyo turns off cursor and on spell
 " * tex insert copied equation command?
 " * Improve underline style
 " * Change abbrev function to handle irregular words?
@@ -66,12 +65,20 @@ nnoremap <F6> :NERDTreeToggle<CR>
 nnoremap <F5> :UndotreeToggle<CR>
 
 " Goyo {{{
-function! MyGoyo()
+function! s:goyo_enter()
     set nocursorline
     set nocursorcolumn
-    Goyo
+    set spell
 endfunction
-command! Goy call MyGoyo()
+
+function! s:goyo_leave()
+    set cursorline
+    set cursorcolumn
+    set nospell
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
 " }}}
 
 " Ultisnips {{{
