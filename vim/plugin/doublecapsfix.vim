@@ -1,5 +1,5 @@
 
-ino <Space> <esc>mxblvu`xa<Space>
-nnoremap W :w<CR>
-nnoremap Wa :wq<CR>
-nnoremap Q :q<CR>
+ino <Space> <Space><esc>mxblvu`xa
+command! W w
+command! Wq wq
+command! Q q
