@@ -165,6 +165,7 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 nnoremap <S-TAB> gT
+nnoremap <TAB> gt
 nnoremap <C-I> gt
 " TODO: somehow tab is shading <C_I>? why?
 nnoremap <C-P> <C-I>
