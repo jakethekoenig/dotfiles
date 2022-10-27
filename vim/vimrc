@@ -37,7 +37,6 @@ Plugin 'junegunn/goyo.vim'
 Plugin 'wakatime/vim-wakatime'
 Plugin 'mbbill/undotree'
 " TODO: customize
-Plugin 'vim-airline/vim-airline'
 Plugin 'kien/rainbow_parentheses.vim'
 
 " Closure
@@ -89,12 +88,12 @@ let g:UltiSnipsEditSplit="vertical"
 " Aesthetics {{{
 " TODO: Is this the prettiest you can do?
 syntax on
+colorscheme murphy
 set wildmenu
 set autoread
 set autoindent
 set smartindent
 set number
-colorscheme murphy
 set cursorline
 set cursorcolumn
 set scrolloff=5
@@ -153,38 +152,6 @@ au VimEnter * RainbowParenthesesLoadRound
 au VimEnter * RainbowParenthesesLoadSquare
 au VimEnter * RainbowParenthesesLoadBraces
 " }}}
-
-" set hidden
-" Start Up Screen {{{
-fun! Start()
-  enew
-  setlocal
-    \ bufhidden=wipe
-    \ buftype=nofile
-    \ nobuflisted
-    \ nocursorcolumn
-    \ nocursorline
-    \ nolist
-    \ nonumber
-    \ noswapfile
-    \ norelativenumber
-
-  exec ":r ~/.vim/splash.txt"
-
-  setlocal
-    \ nomodifiable
-    \ nomodified
-
-  nnoremap <buffer><silent> e :enew<CR>
-  nnoremap <buffer><silent> i :enew <bar> startinsert<CR>
-  nnoremap <buffer><silent> o :enew <bar> startinsert<CR>
-endfun
-
-if argc() == 0
-  " autocmd VimEnter * call Start()
-endif
-
-" }}}
 "}}}
 
 " Normal Mode Commands {{{
@@ -234,7 +201,7 @@ onoremap i$ :<c-u>normal! F$lvf$h<cr>
 "}}}
 
 " Extending Files {{{
-nnoremap <leader>ev :split $MYVIMRC<cr>
+nnoremap <leader>ev :split ~/.vimrc<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 nnoremap <leader>es :UltiSnipsEdit<cr>
 " }}}
