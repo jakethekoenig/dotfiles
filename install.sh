@@ -22,4 +22,5 @@ ln -s "$CURRENT_DIR/tmux/" ~/.tmux
 ln -s "$CURRENT_DIR/tmux/tmux.conf" ~/.tmux.conf
 
 # So vim config works in neovim
+rm ~/.config/nvim/init.vim
 ln -s "$CURRENT_DIR/nvim/init.vim" ~/.config/nvim/init.vim
