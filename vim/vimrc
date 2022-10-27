@@ -36,7 +36,6 @@ Plugin 'tpope/vim-surround'
 Plugin 'junegunn/goyo.vim'
 Plugin 'wakatime/vim-wakatime'
 Plugin 'mbbill/undotree'
-" TODO: customize
 Plugin 'kien/rainbow_parentheses.vim'
 
 " Closure
@@ -51,13 +50,18 @@ Plugin 'jakethekoenig/autogit.vim'
 Plugin 'jakethekoenig/VimOutline'
 
 call vundle#end()
-let g:iced_enable_default_key_mappings = v:true
 
 filetype plugin indent on
 
+" vim-iced {{{
+let g:iced_enable_default_key_mappings = v:true
+" }}}
+
+" NerdTree {{{
 command! Tree :NERDTree
 nnoremap <F6> :NERDTreeToggle<CR>
 nnoremap <F5> :UndotreeToggle<CR>
+"}}}
 
 " Goyo {{{
 function! s:goyo_enter()
@@ -86,51 +90,6 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsEditSplit="vertical"
 " }}}
 
-" }}}
-
-" Aesthetics {{{
-" TODO: Is this the prettiest you can do?
-syntax on
-colorscheme murphy
-set wildmenu
-set autoread
-set autoindent
-set smartindent
-set number
-set cursorline
-set cursorcolumn
-set scrolloff=5
-set rnu
-set path+=**3
-" TODO: I like dark red for multiple windows open but it's a little much when
-" editing just one file.
-" hi CursorLine cterm=NONE ctermbg=darkgrey
-hi CursorLineNr cterm=bold ctermbg=red ctermbg=darkred
-" Needed to backspace over eol on mac
-set backspace=2
-
-" Don't fully understand why I need the following but it fixed something
-" broken with tmux.
-set background=dark
-set t_Co=256
-set smartcase
-
-set noerrorbells
-set title
-
-set dir=~/.vim/.cache
-set undofile
-set undodir=~/.vim/undodir
-
-set nosplitbelow
-set splitright
-
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set expandtab
-set noincsearch
-
 " Rainbow parentheses {{{
 let g:rbpt_colorpairs = [
     \ ['brown',       'RoyalBlue3'],
@@ -156,6 +115,44 @@ au VimEnter * RainbowParenthesesLoadRound
 au VimEnter * RainbowParenthesesLoadSquare
 au VimEnter * RainbowParenthesesLoadBraces
 " }}}
+" }}}
+
+" Aesthetics {{{
+syntax on
+colorscheme murphy
+
+set number rnu
+" Make it easier to find the cursor and line things up
+set cursorline cursorcolumn
+" Keeps the cursor in the middle of the screen
+set scrolloff=5
+
+" Don't fully understand why I need the following but it fixed something
+" broken with tmux.
+set background=dark
+set t_Co=256
+" Needed to backspace over eol on mac
+set backspace=2
+set noerrorbells
+" I don't mind a title but nvim seems to have a rendering problem in terminal. 
+set notitle
+
+set smartcase ignorecase noincsearch
+set path+=**3
+set wildmenu
+
+set dir=~/.vim/.cache
+set undofile
+set undodir=~/.vim/undodir
+
+set autoread
+
+set nosplitbelow splitright
+
+set smartindent autoindent expandtab
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
 "}}}
 
 " Normal Mode Commands {{{
@@ -166,8 +163,8 @@ nnoremap <C-H> <C-W><C-H>
 
 nnoremap <S-TAB> gT
 nnoremap <TAB> gt
+" TODO: somehow tab is shading <C-I>? why?
 nnoremap <C-I> gt
-" TODO: somehow tab is shading <C_I>? why?
 nnoremap <C-P> <C-I>
 nnoremap <C-v> :set paste<CR>"+p:set nopaste<CR>
 inoremap <C-v> <Esc>:set paste<CR>"+p:set nopaste<CR>a
@@ -220,17 +217,11 @@ noremap! <C-BS> <C-w>
 noremap! <C-h> <C-w>
 "}}}
 
-" Aesthetic Scrolling Changes {{{
-nnoremap <c-f> <c-f>zz
-nnoremap <c-b> <c-b>zz
-nnoremap <c-d> <c-d>zz
-nnoremap <c-u> <c-u>zz
-"}}}
-
 " Vimscript file settings {{{
 augroup filetype_vim
 	autocmd!
 	autocmd FileType vim setlocal foldmethod=marker
+    " TODO: make this work with NvIM rc
 	autocmd BufWritePost $MYVIMRC source $MYVIMRC
 augroup END
 " }}}
@@ -249,13 +240,6 @@ function! ToggleWritingMode()
 	endif
 endfunction
 command! WriteLive call ToggleWritingMode()
-" }}}
-
-" Macaulay2 Settings {{{
-augroup filetype_mac
-	autocmd!
-	autocmd Filetype modula2 setlocal syntax=no
-augroup END
 " }}}
 
 " Commenting Autocommands {{{
