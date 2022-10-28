@@ -18,39 +18,7 @@ let mapleader = "-"
 let maplocalleader = "="
 
 " Plugins {{{
-"Command to reinstall plugins: PluginInstall
 set nocompatible
-filetype off
-
-" TODO: find more plugins
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-Plugin 'github/copilot.vim'
-Plugin 'preservim/nerdtree'
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'SirVer/ultisnips'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-surround'
-Plugin 'junegunn/goyo.vim'
-Plugin 'wakatime/vim-wakatime'
-Plugin 'mbbill/undotree'
-Plugin 'kien/rainbow_parentheses.vim'
-
-" Closure
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'guns/vim-sexp'
-Plugin 'liquidz/vim-iced'
-
-" Local version of the plugin. Uncomment to test changes.
-" Plugin 'file:///home/jaek/Development/VimOutline'
-" Plugin 'file:///home/jaek/Development/autogit.vim'
-Plugin 'jakethekoenig/autogit.vim'
-Plugin 'jakethekoenig/VimOutline'
-
-call vundle#end()
-
 filetype plugin indent on
 
 " vim-iced {{{

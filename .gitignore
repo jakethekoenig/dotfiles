@@ -1,10 +1,9 @@
 .netrwhist
 undodir/
 undodir_zsh/
-vim/bundle/*
-!vim/bundle/Vundle.vim
 .cache/
 tmux/plugins/*
 tmux/resurrect
 zsh/local/*.zsh
 vim/nvim_undodir
+vim/view
