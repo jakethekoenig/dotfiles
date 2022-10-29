@@ -3,15 +3,10 @@
 " * WPM tracker and coach. Could count percent of backspaces or whatever.
 "
 " TODO:
-" * Put filetype specific commands in ftplugin files.
-" * Put git branch in register
-" * tex insert copied equation command?
 " * Add comma at end of last json line when making a new line
 " * Search which excludes comments
-" * autocorrect double first letter capitalizations?
 " * <C-S-T> to recover closed buffers
 " * Make a TODO manager for random TODO lists in files.
-" * Just use git submodules and built in plugin manager instead of Vundle
 " }}}
 
 let mapleader = "-"
@@ -20,7 +15,8 @@ let maplocalleader = "="
  " Neovim {{{
 set dir=~/.vim/.cache
 set undofile
- if has('nvim')
+set spellfile=~/.vim/spell/en.utf-8.add
+if has('nvim')
     set runtimepath^=~/.vim runtimepath+=~/.vim/after
     let &packpath=&runtimepath
     set undodir=~/.vim/undodir_zsh
@@ -144,44 +140,22 @@ nnoremap <TAB> gt
 nnoremap <C-u> <C-I>
 nnoremap <C-v> :set paste<CR>"+p:set nopaste<CR>
 inoremap <C-v> <Esc>:set paste<CR>"+p:set nopaste<CR>a
-
-nnoremap <leader>n :tabe ~/notes/notes.wofl<CR>:Goyo<CR>
-nnoremap <leader>j :tabe ~/notes/journal.txt<CR>:Goyo<CR>
 "}}}
 
-" File Type Settings {{{
-" TODO: put these in file files
-set spellfile=~/.vim/spell/en.utf-8.add
-augroup spell
-	autocmd!
-	autocmd Filetype tex setlocal spell
-	autocmd Filetype html,htmldjango setlocal spell
-	autocmd Filetype text setlocal spell
-	autocmd Filetype markdown setlocal spell
-augroup END
-
-" TODO: What other files should I linewrap?
-" TODO: Is this line working as I want?
-augroup linewrap
-	autocmd!
-	autocmd Filetype bib setlocal wrap
-	autocmd Filetype bib setlocal textwidth=80
-augroup END
-
+" Skeletons {{{
 augroup skeletons
 	autocmd!
 	autocmd BufNewFile *.sh 0r ~/.vim/skeletons/bash.sh
 augroup END
-
-" This command is really just for editing tex files but it seems harmless to
-" make generally available.
-onoremap i$ :<c-u>normal! F$lvf$h<cr>
 "}}}
 
 " Extending Files {{{
 nnoremap <leader>ev :split $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 nnoremap <leader>es :UltiSnipsEdit<cr>
+
+nnoremap <leader>n :tabe ~/notes/notes.wofl<CR>:Goyo<CR>
+nnoremap <leader>j :tabe ~/notes/journal.txt<CR>:Goyo<CR>
 " }}}
 
 " Insert Mode Commands {{{
@@ -192,15 +166,6 @@ inoremap :w <esc>:w<cr>
 noremap! <C-BS> <C-w>
 noremap! <C-h> <C-w>
 "}}}
-
-" Vimscript file settings {{{
-augroup filetype_vim
-	autocmd!
-	autocmd FileType vim setlocal foldmethod=marker
-    " TODO: make this work with NvIM rc
-	autocmd BufWritePost $MYVIMRC source $MYVIMRC
-augroup END
-" }}}
 
 " Livewriting mode {{{
 function! ToggleWritingMode()
@@ -219,7 +184,6 @@ command! WriteLive call ToggleWritingMode()
 " }}}
 
 " Commenting Autocommands {{{
-" TODO: make this line work for macaulay files
 function! IsComment()
 	let hg = join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'))
 	return hg =~? 'comment' ? 1 : 0
@@ -229,7 +193,6 @@ augroup comment
 	autocmd!
 	autocmd FileType python nnoremap <expr> <buffer> <localleader>c IsComment() ? 'mc^x`c' : 'mcI#<esc>`c'
 	autocmd FileType sh nnoremap <expr> <buffer> <localleader>c IsComment() ? 'mc^x`c' : 'mcI#<esc>`c'
-	autocmd FileType modula2 nnoremap <expr> <buffer> <localleader>c IsComment() ? 'mc^xx`c' : 'mcI--<esc>`c'
 	autocmd FileType vim nnoremap <expr> <buffer> <localleader>c IsComment() ? 'mc^xx`c' : 'mcI"<space><esc>`c'
 	autocmd FileType tex nnoremap <expr> <buffer> <localleader>c IsComment() ? 'mc^xx`c' : 'mcI%<space><esc>`c'
 	autocmd FileType html,htmldjango nnoremap <expr> <buffer> <localleader>c IsComment() ? 'mc^5x$4Xx`c' : 'mcI<!--<space><esc>$a<space>--><esc>`c'
