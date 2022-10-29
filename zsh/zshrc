@@ -63,5 +63,6 @@ alias gc='git commit'
 alias gco='git checkout'
 alias ga='git add'
 alias gd='git diff'
+alias gp='git push'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
