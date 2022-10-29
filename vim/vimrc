@@ -1,12 +1,9 @@
 " Notes {{{
 " Plugin Ideas:
 " * WPM tracker and coach. Could count percent of backspaces or whatever.
-"
 " TODO:
 " * Add comma at end of last json line when making a new line
 " * Search which excludes comments
-" * <C-S-T> to recover closed buffers
-" * Make a TODO manager for random TODO lists in files.
 " }}}
 
 let mapleader = "-"
@@ -20,6 +17,8 @@ if has('nvim')
     set runtimepath^=~/.vim runtimepath+=~/.vim/after
     let &packpath=&runtimepath
     set undodir=~/.vim/undodir_zsh
+    " Nvim has a rendering problem with title
+    set notitle
 else
     set undodir=~/.vim/undodir
  endif
@@ -98,20 +97,15 @@ syntax on
 colorscheme murphy
 
 set number rnu
-" Make it easier to find the cursor and line things up
 set cursorline cursorcolumn
-" Keeps the cursor in the middle of the screen
 set scrolloff=5
 
-" Don't fully understand why I need the following but it fixed something
-" broken with tmux.
+" Tmux color fix
 set background=dark
 set t_Co=256
 " Needed to backspace over eol on mac
 set backspace=2
 set noerrorbells
-" I don't mind a title but nvim seems to have a rendering problem in terminal. 
-set notitle
 
 set smartcase ignorecase noincsearch
 set path+=**3
@@ -161,7 +155,8 @@ nnoremap <leader>j :tabe ~/notes/journal.txt<CR>:Goyo<CR>
 " Insert Mode Commands {{{
 inoremap <c-u> <esc>lviwUwi
 inoremap jk <esc>
-cnoremap jk <C-f>
+vnoremap jk <esc>
+cnoremap jk <C-f> " cmd mode by I like to keep it togther
 inoremap :w <esc>:w<cr>
 noremap! <C-BS> <C-w>
 noremap! <C-h> <C-w>
@@ -277,7 +272,6 @@ AbbrevWord ctns continuous
 AbbrevWord triineq triangle inequality
 AbbrevWord tbt therefore by the
 AbbrevWord ineq inequality
-
 
 iabbrev ret return
 AbbrevWord jmail jakethekoenig@gmail.com
