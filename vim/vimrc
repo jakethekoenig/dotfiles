@@ -179,7 +179,7 @@ onoremap i$ :<c-u>normal! F$lvf$h<cr>
 "}}}
 
 " Extending Files {{{
-nnoremap <leader>ev :split ~/.vimrc<cr>
+nnoremap <leader>ev :split $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 nnoremap <leader>es :UltiSnipsEdit<cr>
 " }}}
