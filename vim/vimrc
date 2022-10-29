@@ -17,6 +17,18 @@
 let mapleader = "-"
 let maplocalleader = "="
 
+ " Neovim {{{
+set dir=~/.vim/.cache
+set undofile
+ if has('nvim')
+    set runtimepath^=~/.vim runtimepath+=~/.vim/after
+    let &packpath=&runtimepath
+    set undodir=~/.vim/undodir_zsh
+else
+    set undodir=~/.vim/undodir
+ endif
+ " }}}
+
 " Plugins {{{
 set nocompatible
 filetype plugin indent on
@@ -108,10 +120,6 @@ set notitle
 set smartcase ignorecase noincsearch
 set path+=**3
 set wildmenu
-
-set dir=~/.vim/.cache
-set undofile
-set undodir=~/.vim/undodir
 
 set autoread
 
