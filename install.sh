@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 # Quick script to add all the dotfile configs to the home directory
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
