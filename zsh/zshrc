@@ -52,6 +52,7 @@ alias lv='vi ~/.zsh/local.zsh'
 alias sv='source ~/.zshrc'
 alias slv='source ~/.zsh/local.zsh'
 alias :q='exit'
+alias q='exit'
 
 for conf in "$HOME/.zsh/"*.zsh; do
   source "${conf}"
