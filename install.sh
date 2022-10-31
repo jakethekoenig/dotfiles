@@ -2,9 +2,6 @@
 # Quick script to add all the dotfile configs to the home directory
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-echo ~
-echo $CURRENT_DIR
-
 rm -rf ~/.vim
 rm ~/.vimrc
 ln -s "$CURRENT_DIR/vim" ~/.vim
