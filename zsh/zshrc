@@ -44,7 +44,6 @@ alias v='nvim'
 alias py='python3'
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
-alias gpom='git push origin master'
 
 # These names are chosen to match my vim short hands standing for 'edit vimrc', 'source vimrc'
 alias ev='vi ~/.zshrc'
@@ -64,6 +63,6 @@ alias gc='git commit'
 alias gco='git checkout'
 alias ga='git add'
 alias gd='git diff'
-alias gp='git push'
+alias gp='git pull'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
