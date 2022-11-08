@@ -275,4 +275,9 @@ AbbrevWord ineq inequality
 
 iabbrev ret return
 AbbrevWord jmail jakethekoenig@gmail.com
+
+" MTG
+AbbrevWord gy graveyard
+AbbrevWord bf battlefield
+
 " }}}
