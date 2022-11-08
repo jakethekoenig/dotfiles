@@ -9,7 +9,7 @@ set spellfile=~/.vim/spell/en.utf-8.add
 if has('nvim')
     set runtimepath^=~/.vim runtimepath+=~/.vim/after
     let &packpath=&runtimepath
-    set undodir=~/.vim/undodir_zsh
+    set undodir=~/.vim/undodir_nvim
     " Nvim has a rendering problem with title
     set notitle
 else
