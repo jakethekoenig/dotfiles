@@ -119,8 +119,6 @@ nnoremap <C-H> <C-W><C-H>
 
 nnoremap <S-TAB> gT
 nnoremap <TAB> gt
-" TODO: somehow tab is shading <C-I>? why?
-" nnoremap <C-I> gt
 nnoremap <C-u> <C-I>
 nnoremap <C-v> :set paste<CR>"+p:set nopaste<CR>
 inoremap <C-v> <Esc>:set paste<CR>"+p:set nopaste<CR>a
