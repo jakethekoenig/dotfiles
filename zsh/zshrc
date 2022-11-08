@@ -59,10 +59,13 @@ done
 unset conf
 
 alias gs='git status'
+alias gst='git stash'
 alias gc='git commit'
 alias gco='git checkout'
 alias ga='git add'
 alias gd='git diff'
 alias gp='git pull'
+alias gpu='git push'
+alias gl='git log'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
