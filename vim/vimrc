@@ -1,10 +1,3 @@
-" Notes {{{
-" Plugin Ideas:
-" * WPM tracker and coach. Could count percent of backspaces or whatever.
-" TODO:
-" * Add comma at end of last json line when making a new line
-" * Search which excludes comments
-" }}}
 
 let mapleader = "-"
 let maplocalleader = "="
