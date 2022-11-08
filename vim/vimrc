@@ -189,6 +189,13 @@ augroup END
 
 " Abbreviations {{{
 
+" I'm always making these types
+command! Wq :wq
+command! WQ :wq
+command! Q :q
+command! W :w
+command! Wqa :wqa
+
 " TODO: handle suffixes? Have toggle to handle which to generate? -v for verb?
 function! Abbrevword(...)
 	let toabbr = a:1
