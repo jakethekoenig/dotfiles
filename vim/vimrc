@@ -144,10 +144,8 @@ nnoremap <leader>j :tabe ~/notes/journal.txt<CR>:Goyo<CR>
 inoremap <c-u> <esc>lviwUwi
 inoremap jk <esc>
 vnoremap jk <esc>
-cnoremap jk <C-f> " cmd mode by I like to keep it togther
+cnoremap jk <C-f>
 inoremap :w <esc>:w<cr>
-noremap! <C-BS> <C-w>
-noremap! <C-h> <C-w>
 "}}}
 
 " Livewriting mode {{{
