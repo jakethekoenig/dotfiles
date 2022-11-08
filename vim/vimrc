@@ -164,22 +164,6 @@ endfunction
 command! WriteLive call ToggleWritingMode()
 " }}}
 
-" Commenting Autocommands {{{
-function! IsComment()
-	let hg = join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'))
-	return hg =~? 'comment' ? 1 : 0
-endfunction
-
-augroup comment
-	autocmd!
-	autocmd FileType python nnoremap <expr> <buffer> <localleader>c IsComment() ? 'mc^x`c' : 'mcI#<esc>`c'
-	autocmd FileType sh nnoremap <expr> <buffer> <localleader>c IsComment() ? 'mc^x`c' : 'mcI#<esc>`c'
-	autocmd FileType vim nnoremap <expr> <buffer> <localleader>c IsComment() ? 'mc^xx`c' : 'mcI"<space><esc>`c'
-	autocmd FileType tex nnoremap <expr> <buffer> <localleader>c IsComment() ? 'mc^xx`c' : 'mcI%<space><esc>`c'
-	autocmd FileType html,htmldjango nnoremap <expr> <buffer> <localleader>c IsComment() ? 'mc^5x$4Xx`c' : 'mcI<!--<space><esc>$a<space>--><esc>`c'
-augroup END
-" }}}
-
 " Abbreviations {{{
 
 " I'm always making these types

@@ -46,3 +46,6 @@
 [submodule "vim/pack/misc/start/outline"]
 	path = vim/pack/misc/start/outline
 	url = https://github.com/jakethekoenig/VimOutline.git
+[submodule "vim/pack/misc/start/nerdcommenter"]
+	path = vim/pack/misc/start/nerdcommenter
+	url = https://github.com/preservim/nerdcommenter.git
