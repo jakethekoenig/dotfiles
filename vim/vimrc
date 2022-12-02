@@ -29,14 +29,14 @@ nnoremap <F5> :UndotreeToggle<CR>
 "}}}
 
 " Goyo {{{
-function! s:goyo_enter()
+function! s:goyo_enter() abort
     colorscheme morning
     set nocursorline
     set nocursorcolumn
     set spell
 endfunction
 
-function! s:goyo_leave()
+function! s:goyo_leave() abort
     colorscheme murphy
     set cursorline
     set cursorcolumn
@@ -151,7 +151,7 @@ inoremap :w <esc>:w<cr>
 "}}}
 
 " Livewriting mode {{{
-function! ToggleWritingMode()
+function! ToggleWritingMode() abort
 	if !exists('#WriteMode#InsertLeave')
 		augroup WriteMode
 			autocmd!
@@ -176,7 +176,7 @@ command! W :w
 command! Wqa :wqa
 
 " TODO: handle suffixes? Have toggle to handle which to generate? -v for verb?
-function! Abbrevword(...)
+function! Abbrevword(...) abort
 	let toabbr = a:1
 	let target = join(a:000[1:]," ") 
 	execute ("iabbrev " . toabbr ." ".target)
