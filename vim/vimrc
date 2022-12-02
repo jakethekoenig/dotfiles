@@ -105,9 +105,8 @@ set autoread
 
 set nosplitbelow splitright
 
-set autoindent expandtab
-set tabstop=4
 set softtabstop=4
+set autoindent expandtab
 set shiftwidth=4
 
 filetype plugin indent on
