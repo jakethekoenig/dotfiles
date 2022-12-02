@@ -105,10 +105,12 @@ set autoread
 
 set nosplitbelow splitright
 
-set smartindent autoindent expandtab
+set autoindent expandtab
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
+
+filetype plugin indent on
 "}}}
 
 " Normal Mode Commands {{{
