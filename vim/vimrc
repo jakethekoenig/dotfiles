@@ -121,8 +121,8 @@ nnoremap <C-H> <C-W><C-H>
 nnoremap <S-TAB> gT
 nnoremap <TAB> gt
 nnoremap <C-u> <C-I>
-nnoremap <C-v> :set paste<CR>"+p:set nopaste<CR>
-inoremap <C-v> <Esc>:set paste<CR>"+p:set nopaste<CR>a
+nnoremap <C-v> "+p
+inoremap <C-v> <Esc>"+pa
 "}}}
 
 " Skeletons {{{
