@@ -42,13 +42,14 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 # Shorthands
 alias v='nvim'
 alias py='python3'
+alias n='nvim ~/notes/notes.wofl'
 alias ls='ls --color'
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 
 # These names are chosen to match my vim short hands standing for 'edit vimrc', 'source vimrc'
-alias ev='vi ~/.zshrc'
-alias lv='vi ~/.zsh/local.zsh'
+alias ev='v ~/.zshrc'
+alias lv='v ~/.zsh/local.zsh'
 alias sv='source ~/.zshrc'
 alias slv='source ~/.zsh/local.zsh'
 alias :q='exit'

@@ -70,3 +70,7 @@ config
 doctype
 powerstone
 powerstones
+Kalshi
+Clojure
+Wayland
+Rhi
