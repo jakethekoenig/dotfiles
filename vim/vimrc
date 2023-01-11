@@ -219,6 +219,7 @@ AbbrevWord resp respectively
 AbbrevWord bc because
 AbbrevWord rprv representative
 AbbrevWord wo without
+AbbrevWord wha whatever
 AbbrevWord surj surjective
 AbbrevWord inj injective
 AbbrevWord bij bijective
@@ -234,6 +235,7 @@ AbbrevWord cok cokernel
 AbbrevWord dmn dimension
 AbbrevWord dmnl dimensional
 AbbrevWord vs vector space
+AbbrevWord rel relationship
 
 " General Math
 AbbrevWord expy exponentially
@@ -245,6 +247,7 @@ AbbrevWord padic $p$-adic
 AbbrevWord poly polynomial
 AbbrevWord seq sequence
 AbbrevWord ctns continuous
+iabbrev i I
 
 " Analysis
 AbbrevWord triineq triangle inequality
