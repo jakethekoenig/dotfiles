@@ -64,6 +64,7 @@ unset conf
 alias gs='git status'
 alias gst='git stash'
 alias gc='git commit'
+alias gr='git restore'
 alias gco='git checkout'
 alias ga='git add'
 alias gd='git diff'
