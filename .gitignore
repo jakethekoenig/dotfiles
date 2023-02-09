@@ -6,4 +6,5 @@ tmux/plugins/*
 tmux/resurrect
 zsh/local/*.zsh
 vim/nvim_undodir
+vim/undodir_nvim/
 vim/view
