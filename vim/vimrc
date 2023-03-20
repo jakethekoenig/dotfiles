@@ -1,3 +1,6 @@
+" TODO: copy paste from tmux
+" TODO: ctrl-p ignore directory
+
 
 let mapleader = "-"
 let maplocalleader = "="
@@ -20,6 +23,7 @@ else
 " Plugin Configuration {{{
 " vim-iced {{{
 let g:iced_enable_default_key_mappings = v:true
+let g:sexp_enable_insert_mode_mappings = 0
 " }}}
 
 " NerdTree {{{
@@ -209,8 +213,8 @@ AbbrevWord defin definition
 AbbrevWord defly definitely
 AbbrevWord b4 before
 AbbrevWord im I'm
+AbbrevWord ive I've
 AbbrevWord fn function
-AbbrevWord cond condition
 AbbrevWord st such that
 AbbrevWord iff if and only if
 AbbrevWord sa such as
@@ -248,6 +252,13 @@ AbbrevWord poly polynomial
 AbbrevWord seq sequence
 AbbrevWord ctns continuous
 iabbrev i I
+AbbrevWord y why
+AbbrevWord b be
+AbbrevWord dont don't
+AbbrevWord cant can't
+AbbrevWord ab about
+AbbrevWord mb maybe
+AbbrevWord bt but
 
 " Analysis
 AbbrevWord triineq triangle inequality

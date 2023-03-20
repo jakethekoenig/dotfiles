@@ -72,4 +72,6 @@ alias gp='git pull'
 alias gpu='git push'
 alias gl='git log'
 
+export PATH="/home/jake/.local/bin":$PATH
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
