@@ -214,6 +214,7 @@ AbbrevWord defly definitely
 AbbrevWord b4 before
 AbbrevWord im I'm
 AbbrevWord ive I've
+AbbrevWord ill I'll
 AbbrevWord fn function
 AbbrevWord st such that
 AbbrevWord iff if and only if
@@ -256,6 +257,7 @@ AbbrevWord y why
 AbbrevWord b be
 AbbrevWord dont don't
 AbbrevWord cant can't
+AbbrevWord id I'd
 AbbrevWord ab about
 AbbrevWord mb maybe
 AbbrevWord bt but
