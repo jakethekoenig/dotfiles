@@ -49,3 +49,6 @@
 [submodule "vim/pack/misc/start/nerdcommenter"]
 	path = vim/pack/misc/start/nerdcommenter
 	url = https://github.com/preservim/nerdcommenter.git
+[submodule "vim/pack/misc/start/ChatVim"]
+	path = vim/pack/misc/start/ChatVim
+	url = https://github.com/jakethekoenig/ChatVim.git
