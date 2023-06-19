@@ -1,5 +1,4 @@
 " TODO: copy paste from tmux
-" TODO: ctrl-p ignore directory
 
 
 let mapleader = "-"
@@ -21,6 +20,10 @@ else
  " }}}
 
 " Plugin Configuration {{{
+" ctrlp {{{
+set wildignore+=*/node_modules/*,*pycache*
+" }}}
+
 " vim-iced {{{
 let g:iced_enable_default_key_mappings = v:true
 let g:sexp_enable_insert_mode_mappings = 0
