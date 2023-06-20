@@ -118,7 +118,7 @@ set shiftwidth=4
 
 filetype plugin indent on
 
-let g:markdown_fenced_languages = ['html', 'js=javascript', 'ruby', 'clojure', 'javascript']
+let g:markdown_fenced_languages = ['html', 'js=javascript', 'python', 'clojure', 'javascript']
 "}}}
 
 " Normal Mode Commands {{{
