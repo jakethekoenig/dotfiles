@@ -226,6 +226,7 @@ AbbrevWord sa such as
 AbbrevWord ow otherwise
 AbbrevWord resp respectively
 AbbrevWord bc because
+AbbrevWord otoh on the other hand
 AbbrevWord rprv representative
 AbbrevWord wo without
 AbbrevWord wha whatever
@@ -265,6 +266,7 @@ AbbrevWord id I'd
 AbbrevWord ab about
 AbbrevWord mb maybe
 AbbrevWord bt but
+AbbrevWord wev whatever
 
 " Analysis
 AbbrevWord triineq triangle inequality
