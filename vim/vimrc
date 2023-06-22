@@ -148,7 +148,7 @@ nnoremap <leader>es :UltiSnipsEdit<cr>
 
 nnoremap <leader>n :split ~/notes/notes.wofl<CR>:Goyo<CR>
 nnoremap <leader>j :split ~/notes/journal.txt<CR>:Goyo<CR>
-nnoremap <leader>q :vsp ~/notes/gpt_qs.md<CR>Go>><ESC>
+nnoremap <leader>q :vsp ~/notes/gpt_qs.md<CR>G
 " }}}
 
 " Insert Mode Commands {{{
