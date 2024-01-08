@@ -21,7 +21,8 @@ else
 
 " Plugin Configuration {{{
 " ctrlp {{{
-set wildignore+=*/node_modules/*,*pycache*
+set wildignore+=*/node_modules/*,*pycache*,*repos*,*build*,*/venv/*,*/.venv/*,*/benchmark_repos/*
+let g:ctrlp_working_path_mode = '0'
 " }}}
 
 " vim-iced {{{
@@ -251,11 +252,7 @@ AbbrevWord rel relationship
 
 " General Math
 AbbrevWord expy exponentially
-AbbrevWord clh Cohen-Lenstra heuristic
-AbbrevWord cl Cohen-Lenstra
-AbbrevWord sst semi-standard Young tableaux
 AbbrevWord inj injective
-AbbrevWord padic $p$-adic
 AbbrevWord poly polynomial
 AbbrevWord seq sequence
 AbbrevWord ctns continuous
