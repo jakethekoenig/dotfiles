@@ -1,2 +1,1 @@
-colorscheme morning
 set spell
