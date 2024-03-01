@@ -1,5 +1,11 @@
 " TODO: copy paste from tmux
 
+" trigger `autoread` when files changes on disk
+set autoread
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+" notification after file change
+autocmd FileChangedShellPost *
+\ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
 let mapleader = "-"
 let maplocalleader = "="
@@ -21,8 +27,12 @@ else
 
 " Plugin Configuration {{{
 " ctrlp {{{
-set wildignore+=*/node_modules/*,*pycache*,*repos*,*build*,*/venv/*,*/.venv/*,*/benchmark_repos/*
+set wildignore+=*/node_modules/*,*pycache*,*repos*,*build*,*/.env/*,*/venv/*,*/.venv/*,*/benchmark_repos/*
 let g:ctrlp_working_path_mode = '0'
+let g:ctrlp_show_hidden = 1
+
+let g:ctrlp_map = '<c-p>'
+nnoremap <leader>r :CtrlPClearCache<CR>
 " }}}
 
 " vim-iced {{{
@@ -38,14 +48,14 @@ nnoremap <F5> :UndotreeToggle<CR>
 
 " Goyo {{{
 function! s:goyo_enter() abort
-    colorscheme darkblue
+    "colorscheme darkblue
     set nocursorline
     set nocursorcolumn
     set spell
 endfunction
 
 function! s:goyo_leave() abort
-    colorscheme murphy
+    colorscheme desert
     set cursorline
     set cursorcolumn
     set nospell
@@ -92,7 +102,7 @@ au VimEnter * RainbowParenthesesLoadBraces
 
 " Aesthetics {{{
 syntax on
-colorscheme murphy
+colorscheme desert
 
 set number rnu
 set cursorline cursorcolumn
@@ -122,15 +132,34 @@ filetype plugin indent on
 let g:markdown_fenced_languages = ['html', 'js=javascript', 'python', 'clojure', 'javascript']
 "}}}
 
+" Terminal Configuration {{{
+tnoremap <C-x> <C-\><C-n>
+tnoremap <C-p> <C-\><C-n>:CtrlP<CR>
+tnoremap <C-o> <C-\><C-n><C-o>
+tnoremap <C-h> <C-\><C-n><C-w><C-h>
+tnoremap <C-j> <C-\><C-n><C-w><C-j>
+tnoremap <C-k> <C-\><C-n><C-w><C-k>
+tnoremap <C-l> <C-\><C-n><C-w><C-l>
+
+
+nnoremap <leader>m :let currentfile = @% \| new \| execute 'terminal mentat '.currentfile<CR>i
+nnoremap <leader>t :new \| terminal mentat<CR>i
+nnoremap <leader>p :new \| terminal python3<CR>i
+
+nnoremap <leader>c ?```<CR>jvNk$"ty:vnew<CR>i<Esc>"tp:w! temp.py<CR>
+nnoremap <leader>i :let currentfile = @% \| new \| execute 'terminal python3 -i '.currentfile<CR>i
+
+"autocmd TermClose * if !v:event.status | silent! bdelete! | endif
+"}}}
+
 " Normal Mode Commands {{{
+nnoremap <leader>f :enew \| setlocal buftype=nofile \| r !grep -r 
+
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-nnoremap <S-TAB> gT
-nnoremap <TAB> gt
-nnoremap <C-u> <C-I>
 nnoremap <C-v> "+p
 inoremap <C-v> <Esc>"+pa
 "}}}
@@ -143,13 +172,14 @@ augroup END
 "}}}
 
 " Extending Files {{{
-nnoremap <leader>ev :split $MYVIMRC<cr>
+nnoremap <leader>ev :e $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 nnoremap <leader>es :UltiSnipsEdit<cr>
 
-nnoremap <leader>n :split ~/notes/notes.wofl<CR>:Goyo<CR>
-nnoremap <leader>j :split ~/notes/journal.txt<CR>:Goyo<CR>
-nnoremap <leader>q :vsp ~/notes/gpt_qs.md<CR>G
+nnoremap <leader>el :e ~/notes/mentat.wofl<CR>
+nnoremap <leader>en :e ~/notes/notes.wofl<CR>
+nnoremap <leader>ej :e ~/notes/journal.txt<CR>
+nnoremap <leader>eq :e + ~/notes/gpt_qs.md<CR>
 " }}}
 
 " Insert Mode Commands {{{
