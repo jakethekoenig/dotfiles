@@ -55,7 +55,7 @@ function! s:goyo_enter() abort
 endfunction
 
 function! s:goyo_leave() abort
-    colorscheme desert
+    "colorscheme desert
     set cursorline
     set cursorcolumn
     set nospell
@@ -102,7 +102,7 @@ au VimEnter * RainbowParenthesesLoadBraces
 
 " Aesthetics {{{
 syntax on
-colorscheme desert
+"colorscheme desert
 
 set number rnu
 set cursorline cursorcolumn
@@ -141,6 +141,22 @@ tnoremap <C-j> <C-\><C-n><C-w><C-j>
 tnoremap <C-k> <C-\><C-n><C-w><C-k>
 tnoremap <C-l> <C-\><C-n><C-w><C-l>
 
+function! RenameTerminalBufferToCurrentCommand()
+
+  " unable to access $HISTFILE from vim, so change this variable to your history file
+  let l:historyFile = "~/.zsh_history"
+  let l:mostRecentCommand = system("tail -1 " . l:historyFile . " | cut -f2- -d\\;")
+
+  " i prepend "term" for easy buffer searching, but feel free to delete
+  let l:newFileName = "term " . fnameescape(trim(l:mostRecentCommand))
+
+  " the keepalt stops :file from creating an alternative file (alt files are
+  " annoying when buffer switching)
+  " :file renames the buffer
+  silent! execute "keepalt file " . l:newFileName
+
+endfunction
+tnoremap <Enter> <Enter><C-\><C-n>:call RenameTerminalBufferToCurrentCommand()<Enter>a
 
 nnoremap <leader>m :let currentfile = @% \| new \| execute 'terminal mentat '.currentfile<CR>i
 nnoremap <leader>t :new \| terminal mentat<CR>i
@@ -291,7 +307,6 @@ AbbrevWord y why
 AbbrevWord b be
 AbbrevWord dont don't
 AbbrevWord cant can't
-AbbrevWord id I'd
 AbbrevWord ab about
 AbbrevWord mb maybe
 AbbrevWord bt but
