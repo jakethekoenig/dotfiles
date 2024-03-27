@@ -9,3 +9,4 @@ zsh/local/*.sh
 vim/nvim_undodir
 vim/undodir_nvim/
 vim/view
+vim/venv
