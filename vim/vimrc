@@ -51,16 +51,31 @@ nnoremap <F5> :UndotreeToggle<CR>
 " Goyo {{{
 function! s:goyo_enter() abort
     "colorscheme darkblue
+    Copilot disable
     set nocursorline
     set nocursorcolumn
     set spell
+    iabbrev i I
+    call Abbrevword("b", "be")
+    call Abbrevword("u", "you")
+    call Abbrevword("y", "why")
+    call Abbrevword("ab", "about")
+    call Abbrevword("id", "I'd")
 endfunction
 
 function! s:goyo_leave() abort
     "colorscheme desert
+    Copilot enable
+    set nocursorline
     set cursorline
     set cursorcolumn
     set nospell
+    iunabbrev i
+    UnAbbrevWord b
+    UnAbbrevWord u
+    UnAbbrevWord y
+    UnAbbrevWord ab
+    UnAbbrevWord id
     q
 endfunction
 
@@ -139,6 +154,7 @@ let g:markdown_fenced_languages = ['html', 'js=javascript', 'python', 'clojure',
 "}}}
 
 " Terminal Configuration {{{
+nnoremap <C-x> :vsp<CR>:term<CR>
 tnoremap <C-x> <C-\><C-n>
 tnoremap <C-p> <C-\><C-n>:CtrlP<CR>
 tnoremap <C-o> <C-\><C-n><C-o>
@@ -152,9 +168,14 @@ function! RenameTerminalBufferToCurrentCommand()
   " unable to access $HISTFILE from vim, so change this variable to your history file
   let l:historyFile = "~/.zsh_history"
   let l:mostRecentCommand = system("tail -1 " . l:historyFile . " | cut -f2- -d\\;")
+  let l:mostRecentCommand = fnameescape(trim(l:mostRecentCommand))
+  if (l:mostRecentCommand == "q" || l:mostRecentCommand == "quit" || l:mostRecentCommand == "exit")
+      return
+  endif
+
 
   " i prepend "term" for easy buffer searching, but feel free to delete
-  let l:newFileName = "term " . fnameescape(trim(l:mostRecentCommand))
+  let l:newFileName = "term " . l:mostRecentCommand
 
   " the keepalt stops :file from creating an alternative file (alt files are
   " annoying when buffer switching)
@@ -169,7 +190,7 @@ nnoremap <leader>t :new \| terminal mentat<CR>i
 nnoremap <leader>p :new \| terminal python3<CR>i
 
 nnoremap <leader>c ?```<CR>jvNk$"ty:vnew<CR>i<Esc>"tp:w! temp.py<CR>
-nnoremap <leader>i :let currentfile = @% \| new \| execute 'terminal python3 -i '.currentfile<CR>i
+nnoremap <leader>i :let currentfile = @% \| new \| execute 'terminal python -i '.currentfile<CR>i
 
 "autocmd TermClose * if !v:event.status | silent! bdelete! | endif
 "}}}
@@ -205,6 +226,10 @@ nnoremap <leader>eq :e + ~/notes/gpt_qs.md<CR>
 " }}}
 
 " Insert Mode Commands {{{
+inoremap <C-J> <esc><C-W><C-J>
+inoremap <C-K> <esc><C-W><C-K>
+inoremap <C-L> <esc><C-W><C-L>
+inoremap <C-H> <esc><C-W><C-H>
 inoremap <c-u> <esc>lviwUwi
 inoremap jk <esc>
 vnoremap jk <esc>
@@ -238,6 +263,14 @@ command! W :w
 command! Wqa :wqa
 
 " TODO: handle suffixes? Have toggle to handle which to generate? -v for verb?
+function! UnAbbrevword(...) abort
+	let toabbr = a:1
+	execute ("iunabbrev " . toabbr)
+	execute ("iunabbrev " . toabbr."s")
+	execute ("iunabbrev " . (toupper(toabbr[0]).toabbr[1:]))
+	execute ("iunabbrev " . (toupper(toabbr[0]).toabbr[1:]."s"))
+endfunction
+command! -nargs=+ UnAbbrevWord call UnAbbrevword(<f-args>)
 function! Abbrevword(...) abort
 	let toabbr = a:1
 	let target = join(a:000[1:]," ") 
@@ -259,7 +292,9 @@ AbbrevWord prbs probabilities
 AbbrevWord whp with high probability
 AbbrevWord rMT random matrix theory
 
-" Logic (Mathematical bent but not purely)
+"elsewhere Logic (Mathematical bent but not purely)
+iabbrev w/ with
+iabbrev W/ With
 AbbrevWord ew elsewhere
 AbbrevWord tf therefore
 AbbrevWord wlog without loss of generality
@@ -299,7 +334,6 @@ AbbrevWord codim codimension
 AbbrevWord cok cokernel
 AbbrevWord dmn dimension
 AbbrevWord dmnl dimensional
-AbbrevWord vs vector space
 AbbrevWord rel relationship
 
 " General Math
@@ -308,12 +342,8 @@ AbbrevWord inj injective
 AbbrevWord poly polynomial
 AbbrevWord seq sequence
 AbbrevWord ctns continuous
-iabbrev i I
-AbbrevWord y why
-AbbrevWord b be
 AbbrevWord dont don't
 AbbrevWord cant can't
-AbbrevWord ab about
 AbbrevWord mb maybe
 AbbrevWord bt but
 AbbrevWord wev whatever
