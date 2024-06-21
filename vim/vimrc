@@ -56,8 +56,9 @@ function! s:goyo_enter() abort
     set nocursorcolumn
     set spell
     iabbrev i I
+    iabbrev u you
+    iabbrev U You
     call Abbrevword("b", "be")
-    call Abbrevword("u", "you")
     call Abbrevword("y", "why")
     call Abbrevword("ab", "about")
     call Abbrevword("id", "I'd")
@@ -71,8 +72,9 @@ function! s:goyo_leave() abort
     set cursorcolumn
     set nospell
     iunabbrev i
+    iunabbrev u
+    iunabbrev U
     UnAbbrevWord b
-    UnAbbrevWord u
     UnAbbrevWord y
     UnAbbrevWord ab
     UnAbbrevWord id
@@ -117,7 +119,7 @@ au VimEnter * RainbowParenthesesLoadBraces
 " }}}
 
 " ChatVim {{{
-let g:gpt_model="claude-3-opus-20240229"
+let g:gpt_model="gpt-4-turbo"
 " }}}
 " }}}
 
