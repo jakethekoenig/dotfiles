@@ -52,3 +52,6 @@
 [submodule "vim/pack/misc/start/ChatVim"]
 	path = vim/pack/misc/start/ChatVim
 	url = https://github.com/jakethekoenig/ChatVim.git
+[submodule "vim/pack/misc/start/whimper"]
+	path = vim/pack/misc/start/whimper
+	url = https://github.com/jakethekoenig/whimper.git
