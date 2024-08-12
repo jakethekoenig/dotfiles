@@ -387,3 +387,123 @@ AbbrevWord gy graveyard
 AbbrevWord bf battlefield
 
 " }}}
+
+" Complicated Functions written by ChatGPT {{{
+" Function to yank markdown code block or inline code
+function! YankInlineOrBlock(register) abort
+    " Save current cursor position
+    let l:save_pos = getpos('.')
+
+    " Decide behavior based on current line's content
+    if getline('.') =~ '\m^\s*```'
+        echo "Invalid position for yi` command"
+        return
+    endif
+
+    " Check for the presence of backticks on current line
+    if getline('.') =~ '\m`'
+        " Yank inside inline backticks and respect register
+        execute "normal! " . a:register . "vi`y"
+    else
+        " Yank inside triple backtick block
+
+        " Move cursor to the nearest opening triple backtick above
+        let l:line = search('^\s*```', 'bnW')
+
+        " Check if we're in a proper markdown block
+        if getline(l:line) !~ '^\s*```'
+            echo "Not inside a markdown code block"
+            call setpos('.', l:save_pos)
+            return
+        endif
+
+        " Move cursor to the start of the block content
+        call cursor(l:line + 1, 1)
+
+        " Yank until the closing triple backtick
+        let l:end_line = search('^\s*```', 'nW')
+
+        " Check if we found the closing triple backtick
+        if getline(l:end_line) !~ '^\s*```'
+            echo "Unmatched markdown code block"
+            call setpos('.', l:save_pos)
+            return
+        endif
+
+        " Put the block content into a register (default register " and for operations)
+        let lines = getline(l:line + 1, l:end_line - 1)
+        call setreg(a:register, lines, 'l')
+        " Restore cursor position
+        call setpos('.', l:save_pos)
+    endif
+endfunction
+
+" Remap yi` to call the function, allowing for explicit register use
+nmap <silent> yi` :call YankInlineOrBlock(v:register)<CR>
+
+" Github
+function! CopyGithubLink() abort
+  " Save the current working directory
+  let l:original_cwd = getcwd()
+
+  " Change to the directory of the current file
+  let l:buffer_dir = expand('%:p:h')
+  execute 'cd' fnameescape(l:buffer_dir)
+
+  " Get the current file path relative to the repo's root
+  let l:file_path = system('git ls-files --full-name ' . shellescape(expand('%')))
+
+  if v:shell_error
+    echo "Not a git repository or file not tracked"
+    execute 'cd' fnameescape(l:original_cwd)
+    return
+  endif
+  let l:file_path = trim(l:file_path)
+
+  " Get the line number
+  let l:line_number = line(".")
+
+  " Get the origin URL from git
+  let l:origin_url = system("git config --get remote.origin.url")
+  if v:shell_error
+    echo "Not a git repository or no origin remote"
+    execute 'cd' fnameescape(l:original_cwd)
+    return
+  endif
+
+  " Get the current branch name
+  let l:branch_name = system("git rev-parse --abbrev-ref HEAD")
+  if v:shell_error
+    echo "Could not determine the current branch"
+    execute 'cd' fnameescape(l:original_cwd)
+    return
+  endif
+  let l:branch_name = trim(l:branch_name)
+
+  " Sanitizing the origin URL
+  " Trim newline and other trailing whitespace
+  let l:origin_url = trim(l:origin_url)
+
+  " Convert SSH URL to HTTPS URL if needed
+  if l:origin_url =~? '^git@'
+    let l:origin_url = substitute(l:origin_url, '^git@\(.*\):\(.*\)$', 'https://\1/\2', '')
+  endif
+
+  " Remove ".git" suffix if present
+  let l:origin_url = substitute(l:origin_url, '.git$', '', '')
+
+  " Construct the URL to the specific line in the file
+  let l:github_link = l:origin_url . '/blob/' . l:branch_name . '/' . l:file_path . '#L' . l:line_number
+
+  " Copy the GitHub link to the system clipboard
+  let @+ = l:github_link
+  echo "Copied to clipboard: " . l:github_link
+
+  " Restore the original working directory
+  execute 'cd' fnameescape(l:original_cwd)
+endfunction
+
+" Create a command to call the function
+command! CopyGithubLinkToClipboard call CopyGithubLink()
+nnoremap <leader>gh :CopyGithubLinkToClipboard<CR>
+" }}}
