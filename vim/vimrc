@@ -119,7 +119,7 @@ au VimEnter * RainbowParenthesesLoadBraces
 " }}}
 
 " ChatVim {{{
-let g:gpt_model="gpt-4o"
+let g:gpt_model="claude-3-5-sonnet-20240620"
 " }}}
 " }}}
 
@@ -159,7 +159,8 @@ let g:markdown_fenced_languages = ['html', 'js=javascript', 'python', 'clojure',
 
 " Terminal Configuration {{{
 nnoremap <C-x> :sp<CR>:term<CR>
-tnoremap <C-x> <C-\><C-n>
+tnoremap <C-n> <C-\><C-n>
+nnoremap <C-n> <Nop>
 tnoremap <C-p> <C-\><C-n>:CtrlP<CR>
 tnoremap <C-o> <C-\><C-n><C-o>
 tnoremap <C-h> <C-\><C-n><C-w><C-h>
@@ -248,7 +249,13 @@ nnoremap <leader>es :UltiSnipsEdit<cr>
 nnoremap <leader>el :e ~/notes/mentat.wofl<CR>
 nnoremap <leader>en :e ~/notes/notes.wofl<CR>
 nnoremap <leader>ej :e ~/notes/journal.txt<CR>
-nnoremap <leader>eq :sp + ~/notes/gpt_qs.md<CR>
+nnoremap <leader>eq :vsp + ~/notes/gpt_qs.md<CR>
+
+" Notes stuff
+nnoremap <leader>t :sp + todo<CR>
+nnoremap <leader>x jmxk^f[lrx<esc>dd}P`x
+nnoremap <leader>o o- [ ] 
+
 " }}}
 
 " Insert Mode Commands {{{
@@ -506,4 +513,9 @@ endfunction
 " Create a command to call the function
 command! CopyGithubLinkToClipboard call CopyGithubLink()
 nnoremap <leader>gh :CopyGithubLinkToClipboard<CR>
+
+" Copy shell output (gpt couldn't write this one :(
+nnoremap yo mmG^"pyf%`m?\V<c-r>=escape(@p, '/\')<cr><cr>j^vNk$y`m:noh<cr>
+nnoremap <leader>k mmG^"pyf%`m?\V<c-r>=escape(@p, '/\')<cr><cr>:noh<cr>
+nnoremap <leader>j mmG^"pyf%`m/\V<c-r>=escape(@p, '/\')<cr><cr>:noh<cr>
 " }}}
