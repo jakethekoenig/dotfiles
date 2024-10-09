@@ -1,6 +1,3 @@
-[submodule "bundle/Vundle.vim"]
-	path = vim/bundle/Vundle.vim
-	url = https://github.com/VundleVim/Vundle.vim
 [submodule "vim/pack/misc/start/copilot"]
 	path = vim/pack/misc/start/copilot
 	url = https://github.com/github/copilot.vim.git
@@ -10,9 +7,6 @@
 [submodule "vim/pack/misc/start/ultisnips"]
 	path = vim/pack/misc/start/ultisnips
 	url = https://github.com/SirVer/ultisnips.git
-[submodule "vim/pack/misc/start/fugitive"]
-	path = vim/pack/misc/start/fugitive
-	url = https://github.com/tpope/vim-fugitive.git
 [submodule "vim/pack/misc/start/repeat"]
 	path = vim/pack/misc/start/repeat
 	url = https://github.com/tpope/vim-repeat.git
