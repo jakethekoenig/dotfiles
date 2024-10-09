@@ -1,0 +1,33 @@
+- This talk is bootstrapped.
+- ChatVim (https://github.com/jakethekoenig/ChatVim)
+    - Wouldn't necessarily encourage others to use it but it does work well and is fairly minimalist.
+        - I wrote it almost entirely with GPT. It's not my first vim plugin but it was my first written with pynvim. Chat: https://chatgpt.com/share/6706b4fe-bc30-800b-82d4-ca0a907008e7
+    - Tips:
+        * Make a mapping to quickly open your chat file. I use `<leader>eq`.
+        * Can use it in any file.
+            * vimrc vimscript to lua demo
+            * explain this block of code demo
+        * Make a mapping to copy markdown blocks.
+        * Setup syntax highlighting for markdown blocks.
+- LLMs make micros configurations easier to make and therefore increase the value of spending time configuring (https://ja3k.com/blog/vimllm). Jevon's paradox rules everything around me.
+    - Make commands that make it easy to edit your configuration files.
+        - This tip comes from Steve Losh's Learn Vimscript the Hard Way (https://learnvimscriptthehardway.stevelosh.com/). I use `<leader>ev`. I also use `ev` for my zshrc and `<prefix>e` for my tmux.conf.
+            - The book is a little dated now. It's pre-neovim, pure vimscript and recommends Pathogen for plugin management (I recommend git submodules in 2024). But the advice about how to use vim holds up.
+    - Some small configurations I've made recently that wouldn't have been worth it in the recent past:
+        - Copy links to github
+        - Copy markdown blocks
+        - Chatvim itself of course
+        - keylogger
+- Use the vim terminal (https://ja3k.com/blog/inside_out)
+    - I only made this switch in February. Previously I'd primarily used tmux and vim splits.
+        - Benefits:
+            - Everything you've learned about vim now applies to your terminals!
+            - Along with `gf` works like a dream with commands that print file names: git, grep, pytest, etc.
+    - Tips:
+        - Use `git diff --no-prefix`
+        - Make bindings to copy terminal output: very useful with ChatVim (Rare example of GPT not <=3 shotting what I wanted)
+        - If you use an interpreted language like python make a binding to run the current file.
+        - Make a AutoCmd to rename the terminal to last run command.
+            - Use CtrlP to quickly find the terminal you want.
+                - This is one of the few vim plugins I strongly recommend. It's also my primary way of opening files.
+                - It's tempting to hide things like venv/node_modules. But you shouldn't. This makes it really easy to open dependencies. Also `gf` works if you modify your path.
