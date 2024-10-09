@@ -29,7 +29,7 @@ let g:python3_host_prog = '~/dotfiles/vim/venv/bin/python3'
 
 " Plugin Configuration {{{
 " ctrlp {{{
-"set wildignore+=*/node_modules/*,*pycache*,*/repos/*,*build*,*/.env/*,*/venv/*,*/.venv/*,*/benchmark_repos/*
+"set wildignore+=*/node_modules/*,*pycache*,*/repos/*,*build*,*/.env/*,*/venv/*,*/.venv/*,*/benchmark_repos/*,*/spice_logs/*,*/logs/*
 let g:ctrlp_working_path_mode = '0'
 let g:ctrlp_show_hidden = 1
 
@@ -119,13 +119,15 @@ au VimEnter * RainbowParenthesesLoadBraces
 " }}}
 
 " ChatVim {{{
-let g:gpt_model="claude-3-5-sonnet-20240620"
+let g:llm_model="claude-3-5-sonnet-20240620"
+"let g:llm_model="claude-3-opus-20240229"
+
+let g:markdown_fenced_languages = ['html', 'js=javascript', 'python', 'clojure', 'javascript']
 " }}}
 " }}}
 
 " Aesthetics {{{
 syntax on
-"colorscheme desert
 
 set number rnu
 set cursorline cursorcolumn
@@ -153,8 +155,6 @@ set autoindent expandtab
 set shiftwidth=4
 
 filetype plugin indent on
-
-let g:markdown_fenced_languages = ['html', 'js=javascript', 'python', 'clojure', 'javascript']
 "}}}
 
 " Terminal Configuration {{{
@@ -208,7 +208,7 @@ nnoremap <leader>t :new \| terminal mentat<CR>i
 nnoremap <leader>p :new \| terminal python3<CR>i
 
 nnoremap <leader>c ?```<CR>jvNk$"ty:vnew<CR>i<Esc>"tp:w! temp.py<CR>
-nnoremap <leader>i :let currentfile = @% \| new \| execute 'terminal python -i '.currentfile<CR>i
+nnoremap <leader>i :let currentfile = @% \| new \| execute 'terminal python3 -i '.currentfile<CR>i
 
 "autocmd TermClose * if !v:event.status | silent! bdelete! | endif
 "}}}
