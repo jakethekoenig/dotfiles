@@ -28,12 +28,6 @@
 [submodule "vim/pack/misc/start/ctrlp"]
 	path = vim/pack/misc/start/ctrlp
 	url = https://github.com/ctrlpvim/ctrlp.vim.git
-[submodule "vim/pack/misc/start/sexp"]
-	path = vim/pack/misc/start/sexp
-	url = https://github.com/guns/vim-sexp.git
-[submodule "vim/pack/misc/start/iced"]
-	path = vim/pack/misc/start/iced
-	url = https://github.com/liquidz/vim-iced.git
 [submodule "vim/pack/misc/start/autogit"]
 	path = vim/pack/misc/start/autogit
 	url = https://github.com/jakethekoenig/autogit.vim.git
