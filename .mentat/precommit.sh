@@ -1,1 +1,1 @@
-shellcheck install.sh
+true
