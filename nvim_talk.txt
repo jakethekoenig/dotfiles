@@ -1,4 +1,3 @@
-- This talk is bootstrapped.
 - ChatVim (https://github.com/jakethekoenig/ChatVim)
     - Wouldn't necessarily encourage others to use it but it does work well and is fairly minimalist.
         - I wrote it almost entirely with GPT. It's not my first vim plugin but it was my first written with pynvim. Chat: https://chatgpt.com/share/6706b4fe-bc30-800b-82d4-ca0a907008e7

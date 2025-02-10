@@ -1,7 +1,27 @@
 # IDEAS: command to alias last command
 # Command to see status of dotfiles/make commit from any dir.
+git_branch() {
+local branch=$(git branch 2>/dev/null | grep '^*' | colrm 1 2)
+if [ ! -z $branch ]; then
+echo " %F{yellow}🌳$branch%f"
+fi
+}
 
-PROMPT='%F{green}%2~%f %# '
+aws_profile() {
+if [ ! -z $AWS_PROFILE ]; then
+echo "%F{208}(AWS:$AWS_PROFILE)%f"
+fi
+}
+
+butler_env() {
+if [ ! -z $BUTLER_ENVIRONMENT ]; then
+echo "%F{208}(ENV:$BUTLER_ENVIRONMENT)%f"
+fi
+}
+
+setopt PROMPT_SUBST
+PROMPT='%F{blue}╭─%f%F{cyan}%~%f$(aws_profile)$(butler_env)$(git_branch)${VIRTUAL_ENV:+ %F{green}(${VIRTUAL_ENV:t})%f}
+%F{blue}╰─%f%F{red}%(!.#.$)%f '
 
 setopt histignorealldups sharehistory
 
@@ -66,6 +86,7 @@ alias gr='git restore'
 alias gco='git checkout'
 alias ga='git add'
 alias gd='git diff --no-prefix'
+alias gds='git diff --staged --no-prefix'
 alias gp='git pull'
 alias gpu='git push'
 alias gl='git log'

@@ -32,9 +32,13 @@ let g:python3_host_prog = '~/dotfiles/vim/venv/bin/python3'
 "set wildignore+=*/node_modules/*,*pycache*,*/repos/*,*build*,*/.env/*,*/venv/*,*/.venv/*,*/benchmark_repos/*,*/spice_logs/*,*/logs/*
 let g:ctrlp_working_path_mode = '0'
 let g:ctrlp_show_hidden = 1
+let g:ctrlp_max_files = 0
 
 let g:ctrlp_map = '<c-p>'
 nnoremap <leader>r :CtrlPClearCache<CR>
+let g:ctrlp_switch_buffer = 'et'
+let g:ctrlp_open_new_file = 'v'
+let g:ctrlp_open_multiple_files = 'v'
 " }}}
 
 " vim-iced {{{
@@ -119,10 +123,10 @@ au VimEnter * RainbowParenthesesLoadBraces
 " }}}
 
 " ChatVim {{{
-let g:llm_model="claude-3-5-sonnet-20240620"
+let g:llm_model="anthropic/claude-3-5-sonnet-20241022"
 "let g:llm_model="claude-3-opus-20240229"
 
-let g:markdown_fenced_languages = ['html', 'js=javascript', 'python', 'clojure', 'javascript']
+let g:markdown_fenced_languages = ['html', 'js=javascript', 'python', 'clojure', 'javascript', 'tsx=typescriptreact', 'typescriptreact', 'ts=typescript', 'typescript' ]
 " }}}
 " }}}
 
@@ -143,6 +147,7 @@ set noerrorbells
 
 set smartcase ignorecase noincsearch
 set path+=**5
+set path+=~/notes/**
 set suffixesadd+=.txt
 set wildmenu
 
@@ -155,10 +160,12 @@ set autoindent expandtab
 set shiftwidth=4
 
 filetype plugin indent on
+set noequalalways
 "}}}
 
 " Terminal Configuration {{{
 nnoremap <C-x> :sp<CR>:term<CR>
+nnoremap <C-y> :vsp<CR>:term<CR>
 tnoremap <C-n> <C-\><C-n>
 nnoremap <C-n> <Nop>
 tnoremap <C-p> <C-\><C-n>:CtrlP<CR>
@@ -513,6 +520,7 @@ endfunction
 " Create a command to call the function
 command! CopyGithubLinkToClipboard call CopyGithubLink()
 nnoremap <leader>gh :CopyGithubLinkToClipboard<CR>
+
 
 " Copy shell output (gpt couldn't write this one :(
 nnoremap yo mmG^"pyf%`m?\V<c-r>=escape(@p, '/\')<cr><cr>j^vNk$y`m:noh<cr>
