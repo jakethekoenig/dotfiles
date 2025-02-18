@@ -26,6 +26,7 @@ PROMPT='%F{blue}╭─%f%F{cyan}%~%f$(aws_profile)$(butler_env)$(git_branch)${VI
 setopt histignorealldups sharehistory
 
 export TERM=screen-256color
+export PYTHONSTARTUP=~/.python_profile.py
 
 # Vim is life! TODO: quickly port keybindings from my vimrc to my zshrc?
 bindkey -v
@@ -61,7 +62,7 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 # Shorthands
 alias v='nvim'
-alias py='python3'
+alias py='python3 -q'
 alias ls='ls --color'
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced

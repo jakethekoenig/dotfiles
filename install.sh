@@ -7,6 +7,10 @@ rm ~/.vimrc
 ln -s "$CURRENT_DIR/vim" ~/.vim
 ln -s "$CURRENT_DIR/vim/vimrc" ~/.vimrc
 
+pip3 install ptpython
+rm ~/.python_profile.py
+ln -s "$CURRENT_DIR/python_profile.py" ~/.python_profile.py
+
 rm ~/.zshrc
 rm -r ~/.zsh
 ln -s "$CURRENT_DIR/zsh/zshrc" ~/.zshrc
