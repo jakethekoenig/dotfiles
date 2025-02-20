@@ -164,8 +164,7 @@ set noequalalways
 "}}}
 
 " Terminal Configuration {{{
-nnoremap <C-x> :sp<CR>:term<CR>
-nnoremap <C-y> :vsp<CR>:term<CR>
+nnoremap <C-x> :AdaptiveSplit<CR>:term<CR>
 tnoremap <C-n> <C-\><C-n>
 nnoremap <C-n> <Nop>
 tnoremap <C-p> <C-\><C-n>:CtrlP<CR>
@@ -211,11 +210,10 @@ endfunction
 tnoremap <Enter> <Enter><C-\><C-n>:call RenameTerminalBufferToCurrentCommand()<Enter>a
 
 nnoremap <leader>m :let currentfile = @% \| new \| execute 'terminal mentat '.currentfile<CR>i
-nnoremap <leader>t :new \| terminal mentat<CR>i
-nnoremap <leader>p :new \| terminal python3<CR>i
+nnoremap <leader>p :new \| terminal python3 -q<CR>i
 
 nnoremap <leader>c ?```<CR>jvNk$"ty:vnew<CR>i<Esc>"tp:w! temp.py<CR>
-nnoremap <leader>i :let currentfile = @% \| new \| execute 'terminal python3 -i '.currentfile<CR>i
+nnoremap <leader>i :let currentfile = @% \| new \| execute 'terminal python3 -q -i '.currentfile<CR>i
 
 "autocmd TermClose * if !v:event.status | silent! bdelete! | endif
 "}}}
@@ -249,17 +247,17 @@ augroup END
 "}}}
 
 " Extending Files {{{
-nnoremap <leader>ev :e $MYVIMRC<cr>
+nnoremap <leader>ev :AdaptiveSplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 nnoremap <leader>es :UltiSnipsEdit<cr>
 
-nnoremap <leader>el :e ~/notes/mentat.wofl<CR>
-nnoremap <leader>en :e ~/notes/notes.wofl<CR>
-nnoremap <leader>ej :e ~/notes/journal.txt<CR>
-nnoremap <leader>eq :vsp + ~/notes/gpt_qs.md<CR>
+nnoremap <leader>el :AdaptiveSplit ~/notes/mentat.wofl<CR>
+nnoremap <leader>en :AdaptiveSplit ~/notes/notes.wofl<CR>
+nnoremap <leader>ej :AdaptiveSplit ~/notes/journal.txt<CR>
+nnoremap <leader>eq :AdaptiveSplit + ~/notes/gpt_qs.md<CR>
 
 " Notes stuff
-nnoremap <leader>t :sp + todo<CR>
+nnoremap <leader>t :AdaptiveSplit + todo<CR>
 nnoremap <leader>x jmxk^f[lrx<esc>dd}P`x
 nnoremap <leader>o o- [ ] 
 
@@ -521,9 +519,33 @@ endfunction
 command! CopyGithubLinkToClipboard call CopyGithubLink()
 nnoremap <leader>gh :CopyGithubLinkToClipboard<CR>
 
+" AdaptiveSplit {{{
+" Function to decide split direction based on window width
+function! AdaptiveSplit(...)
+    let threshold = 120  " adjust this value to your preference
+    let fullcmd = ''
+    if winwidth(0) > threshold
+        let fullcmd .= 'vsplit'
+    else
+        if winheight(0) > 20
+            let fullcmd .= 'split'
+        else
+            let fullcmd .= 'e'
+        endif
+    endif
+    if a:0 > 0
+        let fullcmd .= ' ' . join(a:000, ' ')
+    endif
+
+    execute fullcmd
+endfunction
+
+" Create a command to use this function
+command! -nargs=* AdaptiveSplit call AdaptiveSplit(<f-args>)
+" }}}
 
 " Copy shell output (gpt couldn't write this one :(
-nnoremap yo mmG^"pyf%`m?\V<c-r>=escape(@p, '/\')<cr><cr>j^vNk$y`m:noh<cr>
-nnoremap <leader>k mmG^"pyf%`m?\V<c-r>=escape(@p, '/\')<cr><cr>:noh<cr>
-nnoremap <leader>j mmG^"pyf%`m/\V<c-r>=escape(@p, '/\')<cr><cr>:noh<cr>
+nnoremap yo mmgg^"pyiW`m?^\V<c-r>=escape(@p, '/\')<cr><cr>j^vNk$y`m:noh<cr>
+nnoremap <leader>k mmgg^"pyiW`m?^\V<c-r>=escape(@p, '/\')<cr><cr>:noh<cr>
+nnoremap <leader>j mmgg^"pyiW`m/^\V<c-r>=escape(@p, '/\')<cr><cr>:noh<cr>
 " }}}
