@@ -1,10 +1,24 @@
 # IDEAS: command to alias last command
 # Command to see status of dotfiles/make commit from any dir.
 git_branch() {
-local branch=$(git branch 2>/dev/null | grep '^*' | colrm 1 2)
-if [ ! -z $branch ]; then
-echo " %F{yellow}🌳$branch%f"
-fi
+    local branch=$(git branch 2>/dev/null | grep '^*' | colrm 1 2)
+    if [ ! -z $branch ]; then
+        local staged=$(git diff --cached --quiet; echo $?)
+        local unstaged=$(git diff --quiet; echo $?)
+        
+        if [ $staged -eq 1 ]; then
+            color="green"
+        else
+            color="cyan"
+        fi
+        
+        local suffix=""
+        if [ $unstaged -eq 1 ]; then
+            suffix="*"
+        fi
+        
+        echo " %F{$color}(🌳 $branch$suffix)%f"
+    fi
 }
 
 aws_profile() {
@@ -20,13 +34,14 @@ fi
 }
 
 setopt PROMPT_SUBST
-PROMPT='%F{blue}╭─%f%F{cyan}%~%f$(aws_profile)$(butler_env)$(git_branch)${VIRTUAL_ENV:+ %F{green}(${VIRTUAL_ENV:t})%f}
+PROMPT='%F{blue}╭─%f%F{cyan}%~%f$(aws_profile)$(butler_env)$(git_branch)%F{green}${VIRTUAL_ENV:+ (🐍 $(basename $(dirname ${VIRTUAL_ENV}))/$(basename ${VIRTUAL_ENV}))}%f
 %F{blue}╰─%f%F{red}%(!.#.$)%f '
 
 setopt histignorealldups sharehistory
 
 export TERM=screen-256color
 export PYTHONSTARTUP=~/.python_profile.py
+export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 # Vim is life! TODO: quickly port keybindings from my vimrc to my zshrc?
 bindkey -v
