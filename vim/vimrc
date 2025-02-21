@@ -28,6 +28,9 @@ let g:python3_host_prog = '~/dotfiles/vim/venv/bin/python3'
 " }}}
 
 " Plugin Configuration {{{
+
+lua require('debugger')
+
 " ctrlp {{{
 "set wildignore+=*/node_modules/*,*pycache*,*/repos/*,*build*,*/.env/*,*/venv/*,*/.venv/*,*/benchmark_repos/*,*/spice_logs/*,*/logs/*
 let g:ctrlp_working_path_mode = '0'
@@ -209,7 +212,6 @@ function! RenameTerminalBufferToCurrentCommand()
 endfunction
 tnoremap <Enter> <Enter><C-\><C-n>:call RenameTerminalBufferToCurrentCommand()<Enter>a
 
-nnoremap <leader>m :let currentfile = @% \| new \| execute 'terminal mentat '.currentfile<CR>i
 nnoremap <leader>p :new \| terminal python3 -q<CR>i
 
 nnoremap <leader>c ?```<CR>jvNk$"ty:vnew<CR>i<Esc>"tp:w! temp.py<CR>

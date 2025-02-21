@@ -43,3 +43,12 @@
 [submodule "vim/pack/misc/start/whimper"]
 	path = vim/pack/misc/start/whimper
 	url = https://github.com/jakethekoenig/whimper.git
+[submodule "vim/pack/misc/start/nvim-dap"]
+	path = vim/pack/misc/start/nvim-dap
+	url = https://github.com/mfussenegger/nvim-dap
+[submodule "vim/pack/misc/start/nvim-dap-python"]
+	path = vim/pack/misc/start/nvim-dap-python
+	url = https://github.com/mfussenegger/nvim-dap-python
+[submodule "vim/pack/misc/start/nvim-dap-ui"]
+	path = vim/pack/misc/start/nvim-dap-ui
+	url = https://github.com/mfussenegger/nvim-dap-ui
