@@ -42,6 +42,7 @@ setopt histignorealldups sharehistory
 export TERM=screen-256color
 export PYTHONSTARTUP=~/.python_profile.py
 export VIRTUAL_ENV_DISABLE_PROMPT=1
+export EDITOR=nvim
 
 # Vim is life! TODO: quickly port keybindings from my vimrc to my zshrc?
 bindkey -v
