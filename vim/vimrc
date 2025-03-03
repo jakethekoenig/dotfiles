@@ -126,7 +126,7 @@ au VimEnter * RainbowParenthesesLoadBraces
 " }}}
 
 " ChatVim {{{
-let g:llm_model="anthropic/claude-3-5-sonnet-20241022"
+let g:llm_model="anthropic/claude-3-7-sonnet-20250219"
 "let g:llm_model="claude-3-opus-20240229"
 
 let g:markdown_fenced_languages = ['html', 'js=javascript', 'python', 'clojure', 'javascript', 'tsx=typescriptreact', 'typescriptreact', 'ts=typescript', 'typescript' ]
