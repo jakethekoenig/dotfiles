@@ -102,10 +102,25 @@ alias gc='git commit'
 alias gr='git restore'
 alias gco='git checkout'
 alias ghco='gh pr checkout'
-alias ghw='gh pr view --web'
+ghw() {
+  if [ -z "$1" ]; then
+    # No arguments - try to open PR for current branch
+    gh pr view --web
+    return $?
+  fi
+
+  # Try to view as PR first
+  if gh pr view "$1" &>/dev/null; then
+    gh pr view --web "$1"
+  else
+    # If not a PR, view as issue
+    gh issue view --web "$1"
+  fi
+}
+alias ghl='gh pr list'
 alias ga='git add'
-alias gd='git diff --no-prefix'
-alias gds='git diff --staged --no-prefix'
+alias gd='git --no-pager diff --no-prefix'
+alias gds='git --no-pager diff --staged --no-prefix'
 alias gp='git pull'
 alias gpu='git push'
 alias gl='git log'
