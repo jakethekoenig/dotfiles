@@ -32,14 +32,14 @@ let g:python3_host_prog = '~/dotfiles/vim/venv/bin/python3'
 lua require('debugger')
 
 " ctrlp {{{
-"set wildignore+=*/node_modules/*,*pycache*,*/repos/*,*build*,*/.env/*,*/venv/*,*/.venv/*,*/benchmark_repos/*,*/spice_logs/*,*/logs/*
+set wildignore+=*/node_modules/*,*pycache*,*/repos/*,*build*,*/.env/*,*/venv/*,*/benchmark_repos/*,*/spice_logs/*
 let g:ctrlp_working_path_mode = '0'
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_max_files = 0
 
 let g:ctrlp_map = '<c-p>'
 nnoremap <leader>r :CtrlPClearCache<CR>
-let g:ctrlp_switch_buffer = 'et'
+let g:ctrlp_switch_buffer = 'Et'
 let g:ctrlp_open_new_file = 'v'
 let g:ctrlp_open_multiple_files = 'v'
 " }}}
@@ -126,7 +126,7 @@ au VimEnter * RainbowParenthesesLoadBraces
 " }}}
 
 " ChatVim {{{
-let g:llm_model="anthropic/claude-3-7-sonnet-20250219"
+let g:llm_model="anthropic/claude-4-sonnet-20250514"
 "let g:llm_model="claude-3-opus-20240229"
 
 let g:markdown_fenced_languages = ['html', 'js=javascript', 'python', 'clojure', 'javascript', 'tsx=typescriptreact', 'typescriptreact', 'ts=typescript', 'typescript' ]
@@ -164,6 +164,7 @@ set shiftwidth=4
 
 filetype plugin indent on
 set noequalalways
+colorscheme slate
 "}}}
 
 " Terminal Configuration {{{
