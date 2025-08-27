@@ -1,0 +1,11 @@
+" Minimal init for CI tests
+set nocompatible
+let mapleader = "-"
+set runtimepath^=.
+" Source only the terminal yank plugin and provide the mappings
+execute 'source' fnameescape('vim/plugin/terminal_yank.vim')
+
+" Re-declare keymaps (they are set in plugin as functions only)
+nnoremap <silent> <leader>yo :<C-u>call TerminalYankOutput(v:register)<CR>
+nnoremap <silent> <leader>k  :<C-u>call TerminalGotoPrevPrompt()<CR>
+nnoremap <silent> <leader>j  :<C-u>call TerminalGotoNextPrompt()<CR>
