@@ -548,7 +548,9 @@ command! -nargs=* AdaptiveSplit call AdaptiveSplit(<f-args>)
 " }}}
 
 " Copy shell output (gpt couldn't write this one :(
-nnoremap yo mmgg^"pyiW`m?^\V<c-r>=escape(@p, '/\')<cr><cr>j^vNk$y`m:noh<cr>
-nnoremap <leader>k mmgg^"pyiW`m?^\V<c-r>=escape(@p, '/\')<cr><cr>:noh<cr>
-nnoremap <leader>j mmgg^"pyiW`m/^\V<c-r>=escape(@p, '/\')<cr><cr>:noh<cr>
+" Improved terminal prompt navigation and yank output (no flicker, register-aware)
+nnoremap <silent> <leader>yo :<C-u>call TerminalYankOutput(v:register)<CR>
+nnoremap <silent> <leader>yi :<C-u>call TerminalYankWithInput(v:register)<CR>
+nnoremap <silent> <leader>k  :<C-u>call TerminalGotoPrevPrompt()<CR>
+nnoremap <silent> <leader>j  :<C-u>call TerminalGotoNextPrompt()<CR>
 " }}}
