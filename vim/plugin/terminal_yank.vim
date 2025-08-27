@@ -33,8 +33,9 @@ function! TerminalGotoPrevPrompt() abort
     echo "No prompt token on this line"
     return
   endif
-  let l:pat = s:PromptRegexFromToken(l:token)
-  " Search backwards, not including current line
+  let l:base = s:PromptRegexFromToken(l:token)
+  " Exclude the current line using \%<Nl (match only on lines strictly above)
+  let l:pat = '\%<' . line('.') . 'l' . l:base
   let l:lnum = search(l:pat, 'bnW')
   if l:lnum > 0
     call cursor(l:lnum, 1)
@@ -54,8 +55,9 @@ function! TerminalGotoNextPrompt() abort
     echo "No prompt token on this line"
     return
   endif
-  let l:pat = s:PromptRegexFromToken(l:token)
-  " Search forwards, skipping current line
+  let l:base = s:PromptRegexFromToken(l:token)
+  " Exclude the current line using \%>Nl (match only on lines strictly below)
+  let l:pat = '\%>' . line('.') . 'l' . l:base
   let l:lnum = search(l:pat, 'W')
   if l:lnum > 0
     call cursor(l:lnum, 1)
@@ -88,10 +90,14 @@ function! TerminalYankOutput(reg) abort
     return
   endif
 
-  " Find the previous prompt matching this token
-  let l:prev_prompt = search(l:pat, 'bnW')
+  " Find the previous prompt without moving the cursor and exclude current line
+  let l:savepos = getpos('.')
+  let l:base = s:PromptRegexFromToken(l:token)
+  let l:pat_prev = '\%<' . l:savepos[1] . 'l' . l:base
+  " 'n' flag: do not move the cursor
+  let l:prev_prompt = search(l:pat_prev, 'bnWn')
   let l:start_line = (l:prev_prompt > 0) ? (l:prev_prompt + 1) : 1
-  let l:end_line = line('.') - 1
+  let l:end_line = l:savepos[1] - 1
 
   if l:end_line < l:start_line
     " No output between prompts

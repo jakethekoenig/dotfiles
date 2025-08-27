@@ -26,15 +26,20 @@ sleep 900m
 
 " Move cursor to last line (should be current prompt)
 normal! G
+" Ensure we are on a prompt line
+call assert_true(getline('.') =~# '^\s*\$ \s*$', "Expected to be on '$ ' prompt line")
 
 " Wait until the last line looks like a '$ ' prompt to avoid 'not a prompt' errors
 call wait(3000, {-> getline('$') =~# '^\s*\$ \s*$' })
 
-" Ensure output arrived (basic wait loop)
-call wait(2000, {-> line('$') >= 1 })
+" Ensure output arrived and prompt is visible (basic wait loop)
+call wait(3000, {-> getline('$') =~# '^\s*\$ \s*$' })
 
 " 1) Test yanking last output into default register by calling function directly
+let before = getpos('.')
 call TerminalYankOutput('"')
+let after = getpos('.')
+call assert_equal(before, after, "Yank should not move the cursor")
 let got = getreg('"')
 " Expected is the lines between the two last prompts, i.e., output of the second ls
 " It should be a permutation depending on locale, but ls -1 is lexical; our files: alpha beta gamma
@@ -47,6 +52,9 @@ let got_a = getreg('a')
 call assert_equal(expected, got_a, "Register a should receive yanked output")
 
 " 3) Test navigation: <leader>k goes to previous prompt, <leader>j returns to next/current
+" Make sure we start from a prompt line
+normal! G
+call assert_true(getline('.') =~# '^\s*\$ \s*$', "Expected to be on '$ ' prompt line before navigation")
 let curr = line('.')
 " Go to previous prompt
 call TerminalGotoPrevPrompt()
