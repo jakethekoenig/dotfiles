@@ -84,15 +84,14 @@ function! TerminalYankOutput(reg) abort
   endif
 
   " Verify current line matches the token at start (i.e., we are on a prompt)
-  let l:pat = s:PromptRegexFromToken(l:token)
-  if match(l:curr_line, l:pat) != 0
+  let l:base = s:PromptRegexFromToken(l:token)
+  if match(l:curr_line, l:base) != 0
     echo "Place cursor on a prompt line to yank output"
     return
   endif
 
   " Find the previous prompt without moving the cursor and exclude current line
   let l:savepos = getpos('.')
-  let l:base = s:PromptRegexFromToken(l:token)
   let l:pat_prev = '\%<' . l:savepos[1] . 'l' . l:base
   " 'n' flag: do not move the cursor
   let l:prev_prompt = search(l:pat_prev, 'bnWn')
@@ -118,4 +117,59 @@ function! TerminalYankOutput(reg) abort
   " Set as linewise register to preserve line boundaries
   call setreg(a:reg, l:lines, 'l')
   echo "Yanked " . len(l:lines) . " line(s) to register " . (empty(a:reg) ? '"' : a:reg)
+endfunction
+
+" Yank the command line (previous prompt line) plus its output block.
+" Does not move the cursor. Respects the provided register.
+" Special case: if the current prompt starts with '╰─$' then drop the last line
+" of the captured output (to account for two-line PS1).
+function! TerminalYankWithInput(reg) abort
+  if !s:IsTerminalBuffer()
+    echo "Not a terminal buffer"
+    return
+  endif
+
+  let l:curr_line = getline('.')
+  let l:token = TerminalPromptToken()
+  if empty(l:token)
+    echo "Current line does not look like a prompt"
+    return
+  endif
+
+  let l:base = s:PromptRegexFromToken(l:token)
+  if match(l:curr_line, l:base) != 0
+    echo "Place cursor on a prompt line to yank command+output"
+    return
+  endif
+
+  " Find previous prompt without moving cursor
+  let l:savepos = getpos('.')
+  let l:pat_prev = '\%<' . l:savepos[1] . 'l' . l:base
+  let l:prev_prompt = search(l:pat_prev, 'bnWn')
+
+  if l:prev_prompt <= 0
+    echo "No previous prompt found"
+    return
+  endif
+
+  " For include-input, start at the previous prompt line (include the command)
+  let l:start_line = l:prev_prompt
+  let l:end_line = l:savepos[1] - 1
+
+  if l:end_line < l:start_line
+    echo "No command/output to yank"
+    return
+  endif
+
+  let l:lines = getline(l:start_line, l:end_line)
+
+  " Special-case two-line prompt lower line starting with '╰─$' (optional space)
+  if l:curr_line =~# '^\s*╰─\s*\$'
+    if len(l:lines) > 0
+      call remove(l:lines, -1)
+    endif
+  endif
+
+  call setreg(a:reg, l:lines, 'l')
+  echo "Yanked " . len(l:lines) . " line(s) (with input) to register " . (empty(a:reg) ? '"' : a:reg)
 endfunction

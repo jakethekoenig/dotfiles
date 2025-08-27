@@ -550,6 +550,7 @@ command! -nargs=* AdaptiveSplit call AdaptiveSplit(<f-args>)
 " Copy shell output (gpt couldn't write this one :(
 " Improved terminal prompt navigation and yank output (no flicker, register-aware)
 nnoremap <silent> <leader>yo :<C-u>call TerminalYankOutput(v:register)<CR>
+nnoremap <silent> <leader>yi :<C-u>call TerminalYankWithInput(v:register)<CR>
 nnoremap <silent> <leader>k  :<C-u>call TerminalGotoPrevPrompt()<CR>
 nnoremap <silent> <leader>j  :<C-u>call TerminalGotoNextPrompt()<CR>
 " }}}
