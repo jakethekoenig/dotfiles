@@ -16,14 +16,19 @@ let tjob = b:terminal_job_id
 " Set a simple single-line prompt and cd to our tmpdir
 call chansend(tjob, "export PS1='$ '\n")
 call chansend(tjob, "cd " . fnameescape(s:tmpdir) . "\n")
+" Force an initial prompt
+call chansend(tjob, "\n")
+sleep 300m
 
-" Run ls twice with deterministic sort order
+" First ls with deterministic sort, then ensure a prompt appears
 call chansend(tjob, "LC_ALL=C ls -1\n")
-" Give time for output
-sleep 600m
+sleep 700m
+call chansend(tjob, "\n")
+sleep 300m
+
+" Second ls, then ensure a prompt appears again
 call chansend(tjob, "LC_ALL=C ls -1\n")
 sleep 900m
-" Send a blank command to ensure a fresh prompt is printed
 call chansend(tjob, "\n")
 sleep 300m
 
