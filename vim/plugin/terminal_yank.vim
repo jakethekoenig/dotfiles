@@ -55,13 +55,8 @@ function! TerminalGotoNextPrompt() abort
     return
   endif
   let l:pat = s:PromptRegexFromToken(l:token)
-  " Search forwards, not including current line
-  let l:lnum = search(l:pat, 'nW')
-  " If we are currently on a prompt line, the above returns current.
-  " Search again to get the next match.
-  if l:lnum == line('.')
-    let l:lnum = search(l:pat, 'W')
-  endif
+  " Search forwards, skipping current line
+  let l:lnum = search(l:pat, 'W')
   if l:lnum > 0
     call cursor(l:lnum, 1)
   else
@@ -107,8 +102,8 @@ function! TerminalYankOutput(reg) abort
 
   let l:lines = getline(l:start_line, l:end_line)
 
-  " Special handling for two-line prompt where the lower line starts with '╰─$'
-  if l:curr_line =~# '^\s*╰─\$'
+  " Special handling for two-line prompt where the lower line starts with '╰─$' (allow optional space)
+  if l:curr_line =~# '^\s*╰─\s*\$'
     if len(l:lines) > 0
       call remove(l:lines, -1)
     endif
