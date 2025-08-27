@@ -32,10 +32,23 @@ sleep 900m
 call chansend(tjob, "\n")
 sleep 300m
 
-" Jump explicitly to the last printed prompt line
+" Wait until at least two '$ ' prompts exist to ensure a previous output block
+function! s:count_prompts() abort
+  let lines = getline(1, '$')
+  let cnt = 0
+  for l in lines
+    if l =~# '^\s*\$ \s*$'
+      let cnt += 1
+    endif
+  endfor
+  return cnt
+endfunction
+call wait(5000, {-> s:count_prompts() >= 2 })
+
+" Position cursor on the last printed prompt line
 normal! G
 let s:last_prompt = search('^\s*\$ \s*$', 'bnW')
-call assert_true(s:last_prompt > 0, "Could not find a '$ ' prompt line")
+call assert_true(s:last_prompt > 0, "Could not find a '$ ' prompt line after wait")
 call cursor(s:last_prompt, 1)
 " Ensure we are on a prompt line
 call assert_true(getline('.') =~# '^\s*\$ \s*$', "Expected to be on '$ ' prompt line")
