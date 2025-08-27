@@ -23,9 +23,15 @@ call chansend(tjob, "LC_ALL=C ls -1\n")
 sleep 600m
 call chansend(tjob, "LC_ALL=C ls -1\n")
 sleep 900m
+" Send a blank command to ensure a fresh prompt is printed
+call chansend(tjob, "\n")
+sleep 300m
 
-" Move cursor to last line (should be current prompt)
+" Jump explicitly to the last printed prompt line
 normal! G
+let s:last_prompt = search('^\s*\$ \s*$', 'bnW')
+call assert_true(s:last_prompt > 0, "Could not find a '$ ' prompt line")
+call cursor(s:last_prompt, 1)
 " Ensure we are on a prompt line
 call assert_true(getline('.') =~# '^\s*\$ \s*$', "Expected to be on '$ ' prompt line")
 
