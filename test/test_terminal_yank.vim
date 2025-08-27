@@ -5,26 +5,30 @@ call writefile(['alpha', 'beta', 'gamma'], s:tmpdir . '/alpha')
 call writefile(['x', 'y'], s:tmpdir . '/beta')
 call writefile([], s:tmpdir . '/gamma')
 
-" Open a terminal
-terminal
+" Open a terminal with an interactive bash and controlled prompt
+terminal bash --norc --noprofile -i
 " Ensure we're in normal mode
 stopinsert
 
 " Get terminal job id
 let tjob = b:terminal_job_id
 
-" Change to repo root to have predictable ls target
+" Set a simple single-line prompt and cd to our tmpdir
+call chansend(tjob, "export PS1='$ '\n")
 call chansend(tjob, "cd " . fnameescape(s:tmpdir) . "\n")
 
-" Run ls twice with -1 for stable single-column output
-call chansend(tjob, "ls -1\n")
+" Run ls twice with deterministic sort order
+call chansend(tjob, "LC_ALL=C ls -1\n")
 " Give time for output
-sleep 500m
-call chansend(tjob, "ls -1\n")
-sleep 800m
+sleep 600m
+call chansend(tjob, "LC_ALL=C ls -1\n")
+sleep 900m
 
 " Move cursor to last line (should be current prompt)
 normal! G
+
+" Wait until the last line looks like a '$ ' prompt to avoid 'not a prompt' errors
+call wait(3000, {-> getline('$') =~# '^\s*\$ \s*$' })
 
 " Ensure output arrived (basic wait loop)
 call wait(2000, {-> line('$') >= 1 })
