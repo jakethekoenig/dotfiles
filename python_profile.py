@@ -1,5 +1,17 @@
 import sys
 from pathlib import Path
+
+# Need to dynamically add vim's venv to path as prompt_toolkit may not be installed globally or
+# in the user's venv.
+# Add venv site-packages to sys.path
+venv_lib = Path.home() / "dotfiles/vim/venv/lib"
+# Find the python version directory dynamically
+python_dirs = list(venv_lib.glob("python*/site-packages"))
+if python_dirs:
+    venv_site_packages = python_dirs[0]  # Usually just one match
+    if str(venv_site_packages) not in sys.path:
+        sys.path.insert(0, str(venv_site_packages))
+
 from prompt_toolkit.keys import Keys
 from prompt_toolkit.filters import ViInsertMode
 from prompt_toolkit.key_binding.key_processor import KeyPress
