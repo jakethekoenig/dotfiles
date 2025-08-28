@@ -55,7 +55,7 @@ HISTFILE=~/.zsh_history
 
 # Use modern completion system
 autoload -Uz compinit
-compinit
+compinit -u
 
 # TODO: understand zstyle better.
 zstyle ':completion:*' auto-description 'specify: %d'
@@ -134,7 +134,7 @@ export PATH="/home/jake/.local/bin":$PATH
 #[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # bun completions
-[ -s "/Users/jakekoenig/.bun/_bun" ] && source "/Users/jakekoenig/.bun/_bun"
+#[ -s "/Users/jakekoenig/.bun/_bun" ] && source "/Users/jakekoenig/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
