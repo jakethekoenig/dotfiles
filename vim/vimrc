@@ -197,11 +197,23 @@ function! RenameTerminalBufferToCurrentCommand() abort
     return
   endif
 
+  " Only rename when we're at the zsh prompt line (avoid subprocess REPLs like python >>>)
+  " Allow user override via g:terminal_prompt_regex
+  if !exists('g:terminal_prompt_regex')
+    let g:terminal_prompt_regex = '^\s*╰─\s*\$'
+  endif
+  if getline('.') !~# g:terminal_prompt_regex
+    return
+  endif
+
   " Capture the terminal buffer we intend to rename
   let l:term_buf = bufnr('%')
+  if !bufexists(l:term_buf)
+    return
+  endif
 
   " Unable to access $HISTFILE from vim, so change this variable to your history file if needed
-  let l:historyFile = "~/.zsh_history"
+  let l:historyFile = expand("~/.zsh_history")
   let l:mostRecentCommand = system("tail -1 " . l:historyFile . " | cut -f2- -d\\;")
   let l:mostRecentCommand = trim(l:mostRecentCommand)
 
@@ -210,8 +222,8 @@ function! RenameTerminalBufferToCurrentCommand() abort
     return
   endif
 
-  " Ignore common shell/REPL exit commands (e.g., exit, exit 0, logout, quit, quit())
-  if l:mostRecentCommand =~? '^\s*\(exit\|logout\|quit\)\s*\%((\s*)\)\=\%(\s\+\d\+\)\=\s*$'
+  " Ignore common shell/REPL exit commands (now including bare 'q')
+  if l:mostRecentCommand =~? '^\s*\(q\|exit\|logout\|quit\)\s*\%((\s*)\)\=\%(\s\+\d\+\)\=\s*$'
     return
   endif
 
@@ -220,11 +232,6 @@ function! RenameTerminalBufferToCurrentCommand() abort
 
   " Build the new name (prefixed with 'term ' for easy searching)
   let l:newFileName = 'term ' . l:mostRecentCommand
-
-  " If the terminal buffer no longer exists (e.g., closed), abort
-  if !bufexists(l:term_buf)
-    return
-  endif
 
   " Rename the intended terminal buffer, restoring the previous buffer after
   let l:cur_buf = bufnr('%')
