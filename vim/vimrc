@@ -191,25 +191,60 @@ nnoremap <C-w>4 4gt
 nnoremap <C-w>5 5gt
 nnoremap <C-w>6 6gt
 
-function! RenameTerminalBufferToCurrentCommand()
-
-  " unable to access $HISTFILE from vim, so change this variable to your history file
-  let l:historyFile = "~/.zsh_history"
-  let l:mostRecentCommand = system("tail -1 " . l:historyFile . " | cut -f2- -d\\;")
-  let l:mostRecentCommand = fnameescape(trim(l:mostRecentCommand))
-  if (l:mostRecentCommand == "q" || l:mostRecentCommand == "quit" || l:mostRecentCommand == "exit")
-      return
+function! RenameTerminalBufferToCurrentCommand() abort
+  " Only operate on terminal buffers; otherwise bail to avoid renaming the wrong buffer
+  if &buftype !=# 'terminal'
+    return
   endif
 
+  " Only rename when we're at the zsh prompt line (avoid subprocess REPLs like python >>>)
+  " Allow user override via g:terminal_prompt_regex
+  if !exists('g:terminal_prompt_regex')
+    let g:terminal_prompt_regex = '^\s*╰─\s*\$'
+  endif
+  if getline('.') !~# g:terminal_prompt_regex
+    return
+  endif
 
-  " i prepend "term" for easy buffer searching, but feel free to delete
-  let l:newFileName = "term " . l:mostRecentCommand
+  " Capture the terminal buffer we intend to rename
+  let l:term_buf = bufnr('%')
+  if !bufexists(l:term_buf)
+    return
+  endif
 
-  " the keepalt stops :file from creating an alternative file (alt files are
-  " annoying when buffer switching)
-  " :file renames the buffer
-  silent! execute "keepalt file " . l:newFileName
+  " Unable to access $HISTFILE from vim, so change this variable to your history file if needed
+  let l:historyFile = expand("~/.zsh_history")
+  let l:mostRecentCommand = system("tail -1 " . l:historyFile . " | cut -f2- -d\\;")
+  let l:mostRecentCommand = trim(l:mostRecentCommand)
 
+  " If we couldn't read a command, do nothing
+  if empty(l:mostRecentCommand)
+    return
+  endif
+
+  " Ignore common shell/REPL exit commands (now including bare 'q')
+  if l:mostRecentCommand =~? '^\s*\(q\|exit\|logout\|quit\)\s*\%((\s*)\)\=\%(\s\+\d\+\)\=\s*$'
+    return
+  endif
+
+  " Sanitize for :file
+  let l:mostRecentCommand = fnameescape(l:mostRecentCommand)
+
+  " Build the new name (prefixed with 'term ' for easy searching)
+  let l:newFileName = 'term ' . l:mostRecentCommand
+
+  " Rename the intended terminal buffer, restoring the previous buffer after
+  let l:cur_buf = bufnr('%')
+  if l:cur_buf != l:term_buf
+    execute 'keepalt buffer ' . l:term_buf
+    silent! execute 'keepalt file ' . l:newFileName
+    " Restore original buffer if it still exists
+    if bufexists(l:cur_buf)
+      execute 'keepalt buffer ' . l:cur_buf
+    endif
+  else
+    silent! execute 'keepalt file ' . l:newFileName
+  endif
 endfunction
 tnoremap <Enter> <Enter><C-\><C-n>:call RenameTerminalBufferToCurrentCommand()<Enter>a
 
