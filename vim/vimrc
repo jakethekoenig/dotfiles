@@ -168,7 +168,7 @@ colorscheme slate
 "}}}
 
 " Terminal Configuration {{{
-nnoremap <C-x> :AdaptiveSplit<CR>:term<CR>
+nnoremap <C-x> :botright 15split <CR>:term<CR>
 tnoremap <C-n> <C-\><C-n>
 nnoremap <C-n> <Nop>
 tnoremap <C-p> <C-\><C-n>:CtrlP<CR>
