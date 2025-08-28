@@ -496,13 +496,16 @@ function! CopyGithubLink() abort
   " Determine default branch from origin/HEAD (falls back to 'main' then 'master')
   let l:origin_head = trim(system("git symbolic-ref --quiet --short refs/remotes/origin/HEAD"))
   if empty(l:origin_head)
-    " Try to detect by presence
-    let l:def_try_main = system("git rev-parse --verify --quiet origin/main >/dev/null 2>&1; echo $?")
-    if l:def_try_main ==# '0'
+    " Probe for origin/main
+    call system('git show-ref --verify --quiet refs/remotes/origin/main')
+    let l:has_main = (v:shell_error == 0)
+    if l:has_main
       let l:default_branch = 'main'
     else
-      let l:def_try_master = system("git rev-parse --verify --quiet origin/master >/dev/null 2>&1; echo $?")
-      let l:default_branch = (l:def_try_master ==# '0') ? 'master' : 'main'
+      " Probe for origin/master
+      call system('git show-ref --verify --quiet refs/remotes/origin/master')
+      let l:has_master = (v:shell_error == 0)
+      let l:default_branch = l:has_master ? 'master' : 'main'
     endif
   else
     " origin_head is like 'origin/main' -> strip 'origin/'
@@ -513,9 +516,11 @@ function! CopyGithubLink() abort
   " If the file's blob at HEAD matches origin/<default_branch>, prefer default branch
   " Otherwise, use current branch
   let l:head_blob = trim(system('git rev-parse HEAD:' . shellescape(l:file_path)))
+  let l:head_ok = (v:shell_error == 0 && !empty(l:head_blob))
   let l:def_blob = trim(system('git rev-parse origin/' . l:default_branch . ':' . shellescape(l:file_path)))
+  let l:def_ok = (v:shell_error == 0 && !empty(l:def_blob))
   let l:use_branch = l:branch_name
-  if v:shell_error == 0 && !empty(l:head_blob) && !empty(l:def_blob) && l:head_blob ==# l:def_blob
+  if l:head_ok && l:def_ok && l:head_blob ==# l:def_blob
     let l:use_branch = l:default_branch
   endif
 
