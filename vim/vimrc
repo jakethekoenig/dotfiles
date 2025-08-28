@@ -467,8 +467,7 @@ function! CopyGithubLink() abort
 
   " Get the current file path relative to the repo's root
   let l:file_path = system('git ls-files --full-name ' . shellescape(expand('%')))
-
-  if v:shell_error
+  if v:shell_error || empty(trim(l:file_path))
     echo "Not a git repository or file not tracked"
     execute 'cd' fnameescape(l:original_cwd)
     return
@@ -486,29 +485,49 @@ function! CopyGithubLink() abort
     return
   endif
 
-  " Get the current branch name
-  let l:branch_name = system("git rev-parse --abbrev-ref HEAD")
-  if v:shell_error
+  " Current branch name
+  let l:branch_name = trim(system("git rev-parse --abbrev-ref HEAD"))
+  if v:shell_error || empty(l:branch_name)
     echo "Could not determine the current branch"
     execute 'cd' fnameescape(l:original_cwd)
     return
   endif
-  let l:branch_name = trim(l:branch_name)
 
-  " Sanitizing the origin URL
-  " Trim newline and other trailing whitespace
+  " Determine default branch from origin/HEAD (falls back to 'main' then 'master')
+  let l:origin_head = trim(system("git symbolic-ref --quiet --short refs/remotes/origin/HEAD"))
+  if empty(l:origin_head)
+    " Try to detect by presence
+    let l:def_try_main = system("git rev-parse --verify --quiet origin/main >/dev/null 2>&1; echo $?")
+    if l:def_try_main ==# '0'
+      let l:default_branch = 'main'
+    else
+      let l:def_try_master = system("git rev-parse --verify --quiet origin/master >/dev/null 2>&1; echo $?")
+      let l:default_branch = (l:def_try_master ==# '0') ? 'master' : 'main'
+    endif
+  else
+    " origin_head is like 'origin/main' -> strip 'origin/'
+    let l:default_branch = substitute(l:origin_head, '^origin/', '', '')
+  endif
+
+  " Decide which branch to use in the link:
+  " If the file's blob at HEAD matches origin/<default_branch>, prefer default branch
+  " Otherwise, use current branch
+  let l:head_blob = trim(system('git rev-parse HEAD:' . shellescape(l:file_path)))
+  let l:def_blob = trim(system('git rev-parse origin/' . l:default_branch . ':' . shellescape(l:file_path)))
+  let l:use_branch = l:branch_name
+  if v:shell_error == 0 && !empty(l:head_blob) && !empty(l:def_blob) && l:head_blob ==# l:def_blob
+    let l:use_branch = l:default_branch
+  endif
+
+  " Sanitize the origin URL
   let l:origin_url = trim(l:origin_url)
-
-  " Convert SSH URL to HTTPS URL if needed
   if l:origin_url =~? '^git@'
     let l:origin_url = substitute(l:origin_url, '^git@\(.*\):\(.*\)$', 'https://\1/\2', '')
   endif
-
-  " Remove ".git" suffix if present
   let l:origin_url = substitute(l:origin_url, '.git$', '', '')
 
   " Construct the URL to the specific line in the file
-  let l:github_link = l:origin_url . '/blob/' . l:branch_name . '/' . l:file_path . '#L' . l:line_number
+  let l:github_link = l:origin_url . '/blob/' . l:use_branch . '/' . l:file_path . '#L' . l:line_number
 
   " Copy the GitHub link to the system clipboard
   let @+ = l:github_link
