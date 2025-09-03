@@ -125,7 +125,7 @@ alias gp='git pull'
 alias gpu='git push'
 alias gl='git log'
 
-export PATH="/home/jake/.local/bin":$PATH
+export PATH="/Users/jakekoenig/.local/bin":$PATH
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -139,3 +139,4 @@ export PATH="/home/jake/.local/bin":$PATH
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+export CLINKY_HOME="/Users/jakekoenig/notes/clinky"
