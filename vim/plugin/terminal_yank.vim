@@ -5,9 +5,6 @@ if exists('g:loaded_terminal_yank')
 endif
 let g:loaded_terminal_yank = 1
 
-function! s:IsTerminalBuffer() abort
-  return &buftype ==# 'terminal'
-endfunction
 
 " Extract the prompt token from the current line: leading non-space up to first whitespace
 function! TerminalPromptToken() abort
