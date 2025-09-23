@@ -1,4 +1,5 @@
 " Prompt utilities and yank-output for buffers with prompt-like content
+" Works with terminals, REPLs, log files, chat logs, or any buffer with prompt patterns
 
 if exists('g:loaded_terminal_yank')
   finish
