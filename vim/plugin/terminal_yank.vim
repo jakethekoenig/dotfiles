@@ -1,4 +1,4 @@
-" Terminal prompt utilities and yank-output for terminal buffers
+" Prompt utilities and yank-output for buffers with prompt-like content
 
 if exists('g:loaded_terminal_yank')
   finish
@@ -24,10 +24,6 @@ endfunction
 
 " Move cursor to previous prompt line matching the current line's token
 function! TerminalGotoPrevPrompt() abort
-  if !s:IsTerminalBuffer()
-    echo "Not a terminal buffer"
-    return
-  endif
   let l:token = TerminalPromptToken()
   if empty(l:token)
     echo "No prompt token on this line"
@@ -46,10 +42,6 @@ endfunction
 
 " Move cursor to next prompt line matching the current line's token
 function! TerminalGotoNextPrompt() abort
-  if !s:IsTerminalBuffer()
-    echo "Not a terminal buffer"
-    return
-  endif
   let l:token = TerminalPromptToken()
   if empty(l:token)
     echo "No prompt token on this line"
@@ -71,11 +63,6 @@ endfunction
 " Special case: if the current prompt starts with '╰─$' then drop the last line
 " of the captured output (to account for two-line PS1).
 function! TerminalYankOutput(reg) abort
-  if !s:IsTerminalBuffer()
-    echo "Not a terminal buffer"
-    return
-  endif
-
   let l:curr_line = getline('.')
   let l:token = TerminalPromptToken()
   if empty(l:token)
@@ -124,11 +111,6 @@ endfunction
 " Special case: if the current prompt starts with '╰─$' then drop the last line
 " of the captured output (to account for two-line PS1).
 function! TerminalYankWithInput(reg) abort
-  if !s:IsTerminalBuffer()
-    echo "Not a terminal buffer"
-    return
-  endif
-
   let l:curr_line = getline('.')
   let l:token = TerminalPromptToken()
   if empty(l:token)
