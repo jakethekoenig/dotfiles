@@ -170,6 +170,7 @@ colorscheme slate
 " Terminal Configuration {{{
 nnoremap <C-x> :botright 15split <CR>:term<CR>i
 tnoremap <C-n> <C-\><C-n>
+tnoremap <C-x> <C-\><C-n>:botright 15split <CR>:term<CR>i
 nnoremap <C-n> <Nop>
 tnoremap <C-p> <C-\><C-n>:CtrlP<CR>
 tnoremap <C-o> <C-\><C-n><C-o>
@@ -331,7 +332,7 @@ command! WriteLive call ToggleWritingMode()
 
 " Abbreviations {{{
 
-" I'm always making these types
+" I'm always making these typos
 command! Wq :wq
 command! WQ :wq
 command! Q :q
