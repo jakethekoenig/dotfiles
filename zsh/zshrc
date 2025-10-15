@@ -1,5 +1,3 @@
-# IDEAS: command to alias last command
-# Command to see status of dotfiles/make commit from any dir.
 git_branch() {
     local branch=$(git branch 2>/dev/null | grep '^*' | colrm 1 2)
     if [ ! -z $branch ]; then
@@ -32,6 +30,126 @@ if [ ! -z $BUTLER_ENVIRONMENT ]; then
 echo "%F{208}(ENV:$BUTLER_ENVIRONMENT)%f"
 fi
 }
+
+# Create or switch to a git worktree
+wt() {
+  if [ -z "$1" ]; then
+    echo "Usage: wt <branch> [<start-point>]" >&2
+    return 1
+  fi
+
+  local branch="$1"
+  shift
+
+  local repo_root
+  repo_root=$(git rev-parse --show-toplevel 2>/dev/null) || {
+    echo "wt: not inside a git repository" >&2
+    return 1
+  }
+
+  local repo_name
+  repo_name=$(basename "$repo_root")
+  local worktree_root="$HOME/worktrees/$repo_name"
+  local worktree_path="$worktree_root/$branch"
+
+  # Check if the branch is already checked out somewhere
+  local existing_path=""
+  local current_worktree=""
+  while IFS= read -r line; do
+    case "$line" in
+      worktree\ *)
+        current_worktree="${line#worktree }"
+        ;;
+      branch\ *)
+        local worktree_branch="${line#branch refs/heads/}"
+        if [ "$worktree_branch" = "$branch" ]; then
+          existing_path="$current_worktree"
+          break
+        fi
+        ;;
+    esac
+  done < <(git worktree list --porcelain)
+
+  if [ -n "$existing_path" ]; then
+    echo "wt: switching to existing worktree at $existing_path" >&2
+    cd "$existing_path"
+    return 0
+  fi
+
+  if [ -e "$worktree_root" ] && [ ! -d "$worktree_root" ]; then
+    echo "wt: $worktree_root exists and is not a directory" >&2
+    return 1
+  fi
+
+  mkdir -p "$worktree_root" || return $?
+
+  if [ -e "$worktree_path" ]; then
+    if [ ! -d "$worktree_path" ]; then
+      echo "wt: $worktree_path exists and is not a directory" >&2
+      return 1
+    fi
+    if [ -d "$worktree_path/.git" ] || [ -f "$worktree_path/.git" ]; then
+      echo "wt: $worktree_path already looks like a git worktree; aborting" >&2
+      return 1
+    fi
+  fi
+
+  local force_flag=()
+  if [ -d "$worktree_path" ]; then
+    if [ -n "$(ls -A "$worktree_path" 2>/dev/null)" ]; then
+      echo "wt: $worktree_path already exists and is not empty" >&2
+      return 1
+    fi
+    force_flag=(--force)
+  fi
+
+  if git show-ref --verify --quiet "refs/heads/$branch"; then
+    git worktree add "${force_flag[@]}" "$worktree_path" "$branch" || return $?
+  else
+    git worktree add "${force_flag[@]}" -b "$branch" "$worktree_path" "$@" || return $?
+  fi
+
+  # Create symlinks for common dependency directories if they exist in the main repo
+  for dir in node_modules venv .venv; do
+    if [ -d "$repo_root/$dir" ] && [ ! -e "$worktree_path/$dir" ]; then
+      ln -s "$repo_root/$dir" "$worktree_path/$dir"
+      echo "wt: created symlink for $dir" >&2
+    fi
+  done
+
+  cd "$worktree_path"
+}
+gwtr() {
+  if [ -z "$1" ]; then
+    echo "Usage: gwtr <branch> [--force]" >&2
+    return 1
+  fi
+
+  local branch="$1"
+  shift
+
+  local repo_root
+  repo_root=$(git rev-parse --show-toplevel 2>/dev/null) || {
+    echo "gwtr: not inside a git repository" >&2
+    return 1
+  }
+
+  local repo_name
+  repo_name=$(basename "$repo_root")
+  local worktree_root="$HOME/worktrees/$repo_name"
+  local worktree_path="$worktree_root/$branch"
+
+  if [ ! -d "$worktree_path" ]; then
+    echo "gwtr: no worktree at $worktree_path" >&2
+    return 1
+  fi
+
+  git worktree remove "$worktree_path" "$@"
+}
+
+alias codex='codex --search --model=gpt-5-codex -c model_reasoning_effort="high" --sandbox workspace-write -c sandbox_workspace_write.network_access=true'
+
+
 
 setopt PROMPT_SUBST
 PROMPT='%F{blue}╭─%f%F{cyan}%~%f$(aws_profile)$(butler_env)$(git_branch)%F{green}${VIRTUAL_ENV:+ (🐍 $(basename $(dirname ${VIRTUAL_ENV}))/$(basename ${VIRTUAL_ENV}))}%f
