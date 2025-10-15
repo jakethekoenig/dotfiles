@@ -126,7 +126,7 @@ au VimEnter * RainbowParenthesesLoadBraces
 " }}}
 
 " ChatVim {{{
-let g:llm_model="anthropic/claude-4-sonnet-20250514"
+let g:llm_model="anthropic/claude-sonnet-4-5"
 "let g:llm_model="claude-3-opus-20240229"
 
 let g:markdown_fenced_languages = ['html', 'js=javascript', 'python', 'clojure', 'javascript', 'tsx=typescriptreact', 'typescriptreact', 'ts=typescript', 'typescript' ]
@@ -164,7 +164,7 @@ set shiftwidth=4
 
 filetype plugin indent on
 set noequalalways
-colorscheme slate
+colorscheme sorbet
 "}}}
 
 " Terminal Configuration {{{
