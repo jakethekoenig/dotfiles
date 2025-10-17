@@ -147,7 +147,7 @@ gwtr() {
   git worktree remove "$worktree_path" "$@"
 }
 
-alias codex='codex --search --model=gpt-5-codex -c model_reasoning_effort="high" --sandbox workspace-write -c sandbox_workspace_write.network_access=true'
+alias codex='codex --search --model=gpt-5-codex -c model_reasoning_effort="high" --sandbox workspace-write'
 
 
 
@@ -174,6 +174,22 @@ HISTFILE=~/.zsh_history
 # Use modern completion system
 autoload -Uz compinit
 compinit -u
+
+# Completion functions for wt and gwtr
+_wt() {
+  local -a branches
+  branches=(${(f)"$(git branch --all --format='%(refname:short)' 2>/dev/null | sed 's#^origin/##')"})
+  _describe 'branch' branches
+}
+
+_gwtr() {
+  local -a branches
+  branches=(${(f)"$(git branch --format='%(refname:short)' 2>/dev/null)"})
+  _describe 'branch' branches
+}
+
+compdef _wt wt
+compdef _gwtr gwtr
 
 # TODO: understand zstyle better.
 zstyle ':completion:*' auto-description 'specify: %d'
