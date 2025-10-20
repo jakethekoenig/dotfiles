@@ -2,28 +2,29 @@
 # Quick script to add all the dotfile configs to the home directory
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-rm -rf ~/.vim
-rm ~/.vimrc
-ln -s "$CURRENT_DIR/vim" ~/.vim
-ln -s "$CURRENT_DIR/vim/vimrc" ~/.vimrc
+# Vim
+ln -sf "$CURRENT_DIR/vim" ~/.vim
+ln -sf "$CURRENT_DIR/vim/vimrc" ~/.vimrc
 
+# Python
 pip3 install ptpython
-rm ~/.python_profile.py
-ln -s "$CURRENT_DIR/python_profile.py" ~/.python_profile.py
+ln -sf "$CURRENT_DIR/python_profile.py" ~/.python_profile.py
 
-rm ~/.zshrc
-rm -r ~/.zsh
-ln -s "$CURRENT_DIR/zsh/zshrc" ~/.zshrc
-ln -s "$CURRENT_DIR/zsh/local" ~/.zsh
+# Zsh
+ln -sf "$CURRENT_DIR/zsh/zshrc" ~/.zshrc
+ln -sf "$CURRENT_DIR/zsh/local" ~/.zsh
 source ~/.zshrc
 
-rm -rf ~/.tmux
-rm ~/.tmux.conf
-ln -s "$CURRENT_DIR/tmux/" ~/.tmux
-ln -s "$CURRENT_DIR/tmux/tmux.conf" ~/.tmux.conf
+# Tmux
+ln -sf "$CURRENT_DIR/tmux/" ~/.tmux
+ln -sf "$CURRENT_DIR/tmux/tmux.conf" ~/.tmux.conf
 
-# So vim config works in neovim
-rm ~/.config/nvim/init.vim
-ln -s "$CURRENT_DIR/vim/vimrc" ~/.config/nvim/init.vim
+# Neovim (use vim config)
+mkdir -p ~/.config/nvim
+ln -sf "$CURRENT_DIR/vim/vimrc" ~/.config/nvim/init.vim
+
+# AeroSpace
+mkdir -p ~/.config/aerospace
+ln -sf "$CURRENT_DIR/aerospace/aerospace.toml" ~/.config/aerospace/aerospace.toml
 
 git submodule update --init
