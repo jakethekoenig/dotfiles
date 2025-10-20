@@ -168,7 +168,7 @@ colorscheme sorbet
 "}}}
 
 " Terminal Configuration {{{
-nnoremap <C-x> :botright 15split <CR>:term<CR>i
+nnoremap <C-x> :botright split <CR>:term<CR>i
 tnoremap <C-n> <C-\><C-n>
 tnoremap <C-x> <C-\><C-n>:botright 15split <CR>:term<CR>i
 nnoremap <C-n> <Nop>
