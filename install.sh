@@ -3,7 +3,7 @@
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Vim
-ln -sf "$CURRENT_DIR/vim" ~/.vim
+ln -sfn "$CURRENT_DIR/vim" ~/.vim
 ln -sf "$CURRENT_DIR/vim/vimrc" ~/.vimrc
 
 # Python
@@ -12,11 +12,11 @@ ln -sf "$CURRENT_DIR/python_profile.py" ~/.python_profile.py
 
 # Zsh
 ln -sf "$CURRENT_DIR/zsh/zshrc" ~/.zshrc
-ln -sf "$CURRENT_DIR/zsh/local" ~/.zsh
+ln -sfn "$CURRENT_DIR/zsh/local" ~/.zsh
 source ~/.zshrc
 
 # Tmux
-ln -sf "$CURRENT_DIR/tmux/" ~/.tmux
+ln -sfn "$CURRENT_DIR/tmux" ~/.tmux
 ln -sf "$CURRENT_DIR/tmux/tmux.conf" ~/.tmux.conf
 
 # Neovim (use vim config)
