@@ -164,7 +164,11 @@ set shiftwidth=4
 
 filetype plugin indent on
 set noequalalways
-colorscheme sorbet
+if exists('$NVIM')
+  colorscheme morning
+else
+  colorscheme sorbet
+endif
 "}}}
 
 " Terminal Configuration {{{
