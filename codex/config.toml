@@ -1,0 +1,17 @@
+model = "gpt-5-codex"
+model_reasoning_effort = "high"
+notify = ["/Users/jakekoenig/dotfiles/llm/notify.sh"]
+[projects."/Users/jakekoenig/clinky"]
+trust_level = "trusted"
+
+[projects."/Users/jakekoenig/kmm"]
+trust_level = "trusted"
+
+[projects."/Users/jakekoenig/dotfiles"]
+trust_level = "trusted"
+
+[projects."/Users/jakekoenig/sealed-gpt-app"]
+trust_level = "trusted"
+
+[projects."/Users/jakekoenig/worktrees"]
+trust_level = "trusted"

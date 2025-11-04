@@ -147,9 +147,6 @@ gwtr() {
   git worktree remove "$worktree_path" "$@"
 }
 
-alias codex='codex --search --model=gpt-5-codex -c model_reasoning_effort="high" --sandbox workspace-write'
-
-
 
 setopt PROMPT_SUBST
 PROMPT='%F{blue}╭─%f%F{cyan}%~%f$(aws_profile)$(butler_env)$(git_branch)%F{green}${VIRTUAL_ENV:+ (🐍 $(basename $(dirname ${VIRTUAL_ENV}))/$(basename ${VIRTUAL_ENV}))}%f

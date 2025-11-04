@@ -27,4 +27,13 @@ ln -sf "$CURRENT_DIR/vim/vimrc" ~/.config/nvim/init.vim
 mkdir -p ~/.config/aerospace
 ln -sf "$CURRENT_DIR/aerospace/aerospace.toml" ~/.config/aerospace/aerospace.toml
 
+# Codex CLI
+mkdir -p ~/.codex
+ln -sf "$CURRENT_DIR/codex/config.toml" ~/.codex/config.toml
+
+# Claude Code
+mkdir -p ~/.claude
+ln -sf "$CURRENT_DIR/.claude/settings.local.json" ~/.claude/settings.local.json
+ln -sf "$CURRENT_DIR/.claude/settings.json" ~/.claude/settings.json
+
 git submodule update --init
