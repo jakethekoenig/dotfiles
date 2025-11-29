@@ -16,9 +16,6 @@
 [submodule "vim/pack/misc/start/goyo"]
 	path = vim/pack/misc/start/goyo
 	url = https://github.com/junegunn/goyo.vim.git
-[submodule "vim/pack/misc/start/wakatime"]
-	path = vim/pack/misc/start/wakatime
-	url = https://github.com/wakatime/vim-wakatime.git
 [submodule "vim/pack/misc/start/undotree"]
 	path = vim/pack/misc/start/undotree
 	url = https://github.com/mbbill/undotree.git

@@ -37,3 +37,7 @@ ln -sf "$CURRENT_DIR/.claude/settings.local.json" ~/.claude/settings.local.json
 ln -sf "$CURRENT_DIR/.claude/settings.json" ~/.claude/settings.json
 
 git submodule update --init
+
+python3 -m venv "$CURRENT_DIR/vim/venv"
+source "$CURRENT_DIR/vim/venv/bin/activate"
+pip install ptpython openai litellm
