@@ -40,4 +40,4 @@ git submodule update --init
 
 python3 -m venv "$CURRENT_DIR/vim/venv"
 source "$CURRENT_DIR/vim/venv/bin/activate"
-pip install ptpython openai litellm
+pip install ptpython openai litellm pynvim
