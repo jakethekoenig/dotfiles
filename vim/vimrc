@@ -126,7 +126,7 @@ au VimEnter * RainbowParenthesesLoadBraces
 " }}}
 
 " ChatVim {{{
-let g:llm_model="anthropic/claude-sonnet-4-5"
+let g:llm_model="anthropic/claude-opus-4-5"
 "let g:llm_model="claude-3-opus-20240229"
 
 let g:markdown_fenced_languages = ['html', 'js=javascript', 'python', 'clojure', 'javascript', 'tsx=typescriptreact', 'typescriptreact', 'ts=typescript', 'typescript' ]
@@ -195,6 +195,8 @@ nnoremap <C-w>3 3gt
 nnoremap <C-w>4 4gt
 nnoremap <C-w>5 5gt
 nnoremap <C-w>6 6gt
+
+autocmd TermOpen * setlocal number relativenumber
 
 function! RenameTerminalBufferToCurrentCommand() abort
   " Only operate on terminal buffers; otherwise bail to avoid renaming the wrong buffer
