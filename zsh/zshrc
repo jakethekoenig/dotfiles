@@ -110,9 +110,16 @@ wt() {
   fi
 
   # Create symlinks for common dependency directories if they exist in the main repo
+  # Use git-common-dir to get the main repo root (not current worktree)
+  local main_repo_root
+  main_repo_root="$(git rev-parse --git-common-dir)"
+  main_repo_root="${main_repo_root%/.git}"  # Strip /.git suffix
+
   for dir in node_modules venv .venv; do
-    if [ -d "$repo_root/$dir" ] && [ ! -e "$worktree_path/$dir" ]; then
-      ln -s "$repo_root/$dir" "$worktree_path/$dir"
+    local target="$main_repo_root/$dir"
+    # Only symlink if target is a real directory (not a symlink) and exists
+    if [ -d "$target" ] && [ ! -L "$target" ] && [ ! -e "$worktree_path/$dir" ]; then
+      ln -s "$target" "$worktree_path/$dir"
       echo "wt: created symlink for $dir" >&2
     fi
   done
