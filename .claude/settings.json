@@ -1,4 +1,5 @@
 {
+  "model": "opus",
   "hooks": {
     "Notification": [
       {
@@ -6,7 +7,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/jakekoenig/dotfiles/llm/notify.sh"
+            "command": "~/dotfiles/llm/notify.sh"
           }
         ]
       }
@@ -16,11 +17,14 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/jakekoenig/dotfiles/llm/notify.sh"
+            "command": "~/dotfiles/llm/notify.sh"
           }
         ]
       }
     ]
   },
-  "alwaysThinkingEnabled": true
+  "alwaysThinkingEnabled": true,
+  "enabledPlugins": {
+    "pyright-lsp@claude-plugins-official": true
+  }
 }
