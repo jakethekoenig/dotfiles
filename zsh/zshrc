@@ -175,9 +175,13 @@ HISTSIZE=100000
 SAVEHIST=100000
 HISTFILE=~/.zsh_history
 
-# Use modern completion system
+# Use modern completion system (cached - regenerates daily)
 autoload -Uz compinit
-compinit -u
+if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
+  compinit
+else
+  compinit -C
+fi
 
 # Completion functions for wt and gwtr
 _wt() {
