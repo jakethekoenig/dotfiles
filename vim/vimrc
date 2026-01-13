@@ -259,6 +259,7 @@ nnoremap <leader>p :new \| terminal python3 -q<CR>i
 
 nnoremap <leader>c ?```<CR>jvNk$"ty:vnew<CR>i<Esc>"tp:w! temp.py<CR>
 nnoremap <leader>i :let currentfile = @% \| new \| execute 'terminal python3 -q -i '.currentfile<CR>i
+nnoremap <leader>d :let currentfile = @% \| vsplit \| term<CR>:call chansend(b:terminal_job_id, "gd ".currentfile."\n")<CR>
 
 "autocmd TermClose * if !v:event.status | silent! bdelete! | endif
 "}}}
