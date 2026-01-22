@@ -5,6 +5,7 @@
       "Read(zsh/local/local.zsh)"
     ]
   },
+  "cleanupPeriodDays": 9999,
   "model": "opus",
   "hooks": {
     "Notification": [
