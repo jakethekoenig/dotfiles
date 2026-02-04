@@ -16,7 +16,9 @@ endfunction
 
 function! s:PromptRegexFromToken(token) abort
   " Build regex to match start of line + optional spaces + token + (whitespace or EOL)
-  let l:tok = escape(a:token, '\.^$~[]*(){}|?+-')
+  " In Vim's magic mode: . * ^ $ ~ [ ] \ are special; + ? | ( ) { } are literal
+  " Escaping + or ? would turn them INTO quantifiers, so don't escape them
+  let l:tok = escape(a:token, '\.^$~[]*')
   return '^\s*' . l:tok . '\(\s\|$\)'
 endfunction
 
