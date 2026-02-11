@@ -220,7 +220,13 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 # Shorthands
 alias c='claude --dangerously-skip-permissions'
-alias v='nvim'
+v() {
+  if [ -e /tmp/nvim.sock ]; then
+    nvim "$@"
+  else
+    nvim --listen /tmp/nvim.sock "$@"
+  fi
+}
 alias py='python3 -q'
 alias ls='ls --color'
 export CLICOLOR=1
