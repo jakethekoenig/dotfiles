@@ -1,11 +1,11 @@
 {
+  "cleanupPeriodDays": 9999,
   "permissions": {
     "deny": [
       "Read(~/.zsh/local.zsh)",
       "Read(zsh/local/local.zsh)"
     ]
   },
-  "cleanupPeriodDays": 9999,
   "model": "opus",
   "hooks": {
     "Notification": [
@@ -30,8 +30,8 @@
       }
     ]
   },
-  "alwaysThinkingEnabled": true,
   "enabledPlugins": {
     "pyright-lsp@claude-plugins-official": true
-  }
+  },
+  "alwaysThinkingEnabled": true
 }

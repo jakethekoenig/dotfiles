@@ -35,6 +35,7 @@ ln -sf "$CURRENT_DIR/codex/config.toml" ~/.codex/config.toml
 mkdir -p ~/.claude
 ln -sf "$CURRENT_DIR/.claude/settings.local.json" ~/.claude/settings.local.json
 ln -sf "$CURRENT_DIR/.claude/settings.json" ~/.claude/settings.json
+ln -sf "$CURRENT_DIR/.claude/CLAUDE.md" ~/.claude/CLAUDE.md
 
 git submodule update --init
 
