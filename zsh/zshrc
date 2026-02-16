@@ -112,17 +112,32 @@ wt() {
   # Create symlinks for common dependency directories if they exist in the main repo
   # Use git-common-dir to get the main repo root (not current worktree)
   local main_repo_root
-  main_repo_root="$(git rev-parse --git-common-dir)"
+  main_repo_root="$(cd "$repo_root" && git rev-parse --git-common-dir)"
+  # Resolve to absolute path
+  if [[ "$main_repo_root" != /* ]]; then
+    main_repo_root="$repo_root/$main_repo_root"
+  fi
   main_repo_root="${main_repo_root%/.git}"  # Strip /.git suffix
 
-  for dir in node_modules venv .venv; do
+  # Symlink top-level venv/.venv
+  for dir in venv .venv; do
     local target="$main_repo_root/$dir"
-    # Only symlink if target is a real directory (not a symlink) and exists
     if [ -d "$target" ] && [ ! -L "$target" ] && [ ! -e "$worktree_path/$dir" ]; then
       ln -s "$target" "$worktree_path/$dir"
       echo "wt: created symlink for $dir" >&2
     fi
   done
+
+  # Recursively symlink node_modules directories (max depth 5 to avoid cycles)
+  while IFS= read -r nm_dir; do
+    local rel="${nm_dir#$main_repo_root/}"
+    local dest="$worktree_path/$rel"
+    if [ ! -e "$dest" ]; then
+      mkdir -p "$(dirname "$dest")"
+      ln -s "$nm_dir" "$dest"
+      echo "wt: created symlink for $rel" >&2
+    fi
+  done < <(find "$main_repo_root" -maxdepth 5 -name node_modules -type d -not -path '*/node_modules/*/node_modules/*' 2>/dev/null)
 
   cd "$worktree_path"
 }
