@@ -306,3 +306,9 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # amp
 export PATH="$HOME/.local/bin:$PATH"
+
+# Emit OSC 7 before each prompt so nvim terminals can track cwd
+__osc7_precmd() {
+  printf '\033]7;file://%s\033\\' "$PWD"
+}
+precmd_functions+=(__osc7_precmd)

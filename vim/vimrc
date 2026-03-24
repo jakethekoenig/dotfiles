@@ -198,6 +198,24 @@ nnoremap <C-w>6 6gt
 
 autocmd TermOpen * setlocal number relativenumber
 
+" Detect OSC 7 directory change sequences from terminal and tcd to that path
+if has('nvim')
+lua << EOF
+  vim.api.nvim_create_autocmd("TermRequest", {
+    callback = function()
+      local seq = vim.v.termrequest
+      if not seq or not seq:match("^\027%]7;") then return end
+      local uri = seq:match("^\027%]7;(.+)")
+      if not uri then return end
+      local path = uri:gsub("^file://[^/]*", ""):gsub("%%(%x%x)", function(h) return string.char(tonumber(h, 16)) end)
+      if vim.fn.isdirectory(path) == 1 and vim.fn.getcwd(-1, 0) ~= path then
+        vim.cmd("tcd " .. vim.fn.fnameescape(path))
+      end
+    end,
+  })
+EOF
+endif
+
 function! RenameTerminalBufferToCurrentCommand() abort
   " Only operate on terminal buffers; otherwise bail to avoid renaming the wrong buffer
   if &buftype !=# 'terminal'
