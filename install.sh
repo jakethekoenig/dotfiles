@@ -30,6 +30,7 @@ ln -sf "$CURRENT_DIR/aerospace/aerospace.toml" ~/.config/aerospace/aerospace.tom
 # Codex CLI
 mkdir -p ~/.codex
 ln -sf "$CURRENT_DIR/codex/config.toml" ~/.codex/config.toml
+ln -sf "$CURRENT_DIR/.claude/CLAUDE.md" ~/.codex/AGENTS.override.md
 
 # Claude Code
 mkdir -p ~/.claude
