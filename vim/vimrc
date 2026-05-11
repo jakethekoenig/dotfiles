@@ -58,7 +58,6 @@ nnoremap <F5> :UndotreeToggle<CR>
 " Goyo {{{
 function! s:goyo_enter() abort
     "colorscheme darkblue
-    Copilot disable
     set nocursorline
     set nocursorcolumn
     set spell
@@ -73,7 +72,6 @@ endfunction
 
 function! s:goyo_leave() abort
     "colorscheme desert
-    Copilot enable
     set nocursorline
     set cursorline
     set cursorcolumn
@@ -165,9 +163,9 @@ set shiftwidth=4
 filetype plugin indent on
 set noequalalways
 if exists('$NVIM')
-  colorscheme morning
-else
   colorscheme sorbet
+else
+  colorscheme shine
 endif
 "}}}
 
