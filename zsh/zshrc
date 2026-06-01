@@ -262,7 +262,7 @@ unset conf
 
 alias gs='git status'
 alias gst='git stash'
-alias gc='git commit'
+alias gc='git commit -v'
 alias gr='git restore'
 alias gco='git checkout'
 alias ghco='gh pr checkout'
