@@ -234,7 +234,8 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 # Shorthands
-alias c='claude --dangerously-skip-permissions'
+alias c='claude --dangerously-skip-permissions --verbose'
+alias codex='codex --sandbox workspace-write'
 v() {
   if [ -e /tmp/nvim.sock ]; then
     nvim "$@"
@@ -312,3 +313,14 @@ __osc7_precmd() {
   printf '\033]7;file://%s\033\\' "$PWD"
 }
 precmd_functions+=(__osc7_precmd)
+
+# Make Neovim the default home for a fresh terminal. $NVIM and the fallback
+# marker from vimrc prevent Neovim's own terminals from nesting forever. Set
+# NVIM_AUTO_START=0 to opt out for a particular shell.
+if [[ -t 0 && -t 1
+      && -z ${NVIM:-}
+      && -z ${NVIM_TERMINAL:-}
+      && -z ${ZSH_EXECUTION_STRING:-}
+      && ${NVIM_AUTO_START:-1} != 0 ]]; then
+  v
+fi

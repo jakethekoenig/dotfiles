@@ -16,6 +16,9 @@ if has('nvim')
     set runtimepath^=~/.vim runtimepath+=~/.vim/after
     let &packpath=&runtimepath
     set undodir=~/.vim/undodir_nvim
+    " Let shells spawned by :terminal identify themselves even if Neovim was
+    " started without an RPC server (and therefore has no $NVIM value).
+    let $NVIM_TERMINAL = 1
     " Nvim has a rendering problem with title
     set notitle
 else
@@ -166,12 +169,46 @@ if exists('$NVIM')
   colorscheme sorbet
 else
   set background=light
-  colorscheme default
+  colorscheme shine
 endif
+
+function! s:ApplyTablineHighlights() abort
+  highlight! TabLineSel gui=bold guifg=#000000 guibg=#ffd75f cterm=bold ctermfg=0 ctermbg=221
+endfunction
+
+augroup MyTablineHighlights
+  autocmd!
+  autocmd ColorScheme * call s:ApplyTablineHighlights()
+augroup END
+
+call s:ApplyTablineHighlights()
 "}}}
 
 " Terminal Configuration {{{
+function! s:OpenTerminalOnEmptyStartup() abort
+  " Only replace the pristine buffer from an argument-free, interactive startup.
+  " This leaves file opens (including git commit messages), sessions, and
+  " headless Neovim invocations alone.
+  if has('nvim')
+        \ && argc() == 0
+        \ && !empty(nvim_list_uis())
+        \ && bufname('%') ==# ''
+        \ && &buftype ==# ''
+        \ && !&modified
+        \ && line('$') == 1
+        \ && getline(1) ==# ''
+    terminal
+    startinsert
+  endif
+endfunction
+
+augroup OpenTerminalOnEmptyStartup
+  autocmd!
+  autocmd VimEnter * call s:OpenTerminalOnEmptyStartup()
+augroup END
+
 nnoremap <C-x> :botright split <CR>:term<CR>i
+nnoremap <leader>x :tabe<CR>:term<CR>i
 tnoremap <C-n> <C-\><C-n>
 tnoremap <C-x> <C-\><C-n>:botright 15split <CR>:term<CR>i
 nnoremap <C-n> <Nop>
@@ -201,7 +238,7 @@ nnoremap <C-w>7 7gt
 nnoremap <C-w>8 8gt
 nnoremap <C-w>9 9gt
 
-autocmd TermOpen * setlocal number relativenumber
+autocmd TermOpen * setlocal number relativenumber scrollback=100000
 
 " Detect OSC 7 directory change sequences from terminal and tcd to that path
 if has('nvim')
@@ -361,8 +398,8 @@ nnoremap <leader>eq :AdaptiveSplit + ~/notes/gpt_qs.md<CR>
 
 " Notes stuff
 nnoremap <leader>t :AdaptiveSplit + todo<CR>
-nnoremap <leader>x jmxk^f[lrx<esc>dd}P`x
 nnoremap <leader>o o- [ ] 
+"nnoremap <leader>x jmxk^f[xrx<esc>dd}P`x
 
 " }}}
 
